@@ -1,0 +1,72 @@
+###############################################################################
+# TASK 2: User Avatar Management
+###############################################################################
+
+# 1. Upload an avatar for user 'tarnowsky' (JPEG)
+PUT http://localhost:9080/wingspan/api/users/81e1c2a9-7f57-439b-b53d-6db88b071e4e/avatar
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="avatar"; filename="tarnowsky-avatar.jpeg"
+
+< Wingspan/src/main/resources/pl/edu/pg/eti/kask/wingspan/configuration/user/avatar_1.jpeg
+--boundary--
+
+###
+
+# 2. Retrieve avatar for user 'tarnowsky'
+GET http://localhost:9080/wingspan/api/users/81e1c2a9-7f57-439b-b53d-6db88b071e4e/avatar
+
+###
+
+# 3. Overwrite avatar for user 'tarnowsky' (new file)
+PUT http://localhost:9080/wingspan/api/users/81e1c2a9-7f57-439b-b53d-6db88b071e4e/avatar
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="avatar"; filename="tarnowsky-new-avatar.jpeg"
+
+< Wingspan/src/main/resources/pl/edu/pg/eti/kask/wingspan/configuration/user/avatar_2.jpeg
+--boundary--
+
+###
+
+# 4. Retrieve the new avatar for user 'tarnowsky'
+GET http://localhost:9080/wingspan/api/users/81e1c2a9-7f57-439b-b53d-6db88b071e4e/avatar
+
+###
+
+# 5. Upload avatar for user 'admin'
+PUT http://localhost:9080/wingspan/api/users/c4804e0f-769e-4ab9-9ebe-0578fb4f00a6/avatar
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="avatar"; filename="admin-avatar.jpeg"
+
+< Wingspan/src/main/resources/pl/edu/pg/eti/kask/wingspan/configuration/user/avatar_3.jpeg
+--boundary--
+
+###
+
+# 6. Retrieve avatar for user 'admin'
+GET http://localhost:9080/wingspan/api/users/c4804e0f-769e-4ab9-9ebe-0578fb4f00a6/avatar
+
+###
+
+# 7. Delete avatar for user 'tarnowsky'
+DELETE http://localhost:9080/wingspan/api/users/81e1c2a9-7f57-439b-b53d-6db88b071e4e/avatar
+
+###
+
+# 8. Attempt to retrieve deleted avatar (should return an error)
+GET http://localhost:9080/wingspan/api/users/81e1c2a9-7f57-439b-b53d-6db88b071e4e/avatar
+
+###
+
+# 9. Attempt to retrieve avatar for a non-existent user (should return an error)
+GET http://localhost:9080/wingspan/api/users/00000000-0000-0000-0000-000000000000/avatar
+
+###
+
+# 10. Delete avatar for user 'admin'
+DELETE http://localhost:9080/wingspan/api/users/c4804e0f-769e-4ab9-9ebe-0578fb4f00a6/avatar

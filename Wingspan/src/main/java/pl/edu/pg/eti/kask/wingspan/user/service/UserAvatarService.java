@@ -31,13 +31,15 @@ public class UserAvatarService {
 
     public byte[] getAvatar(UUID userId) {
         Path avatarPath = getAvatarFilePath(userId);
+
+        if (!Files.exists(avatarPath)) {
+            throw new IllegalStateException("Avatar not found for user: " + userId);
+        }
+
         try {
-            if (Files.exists(avatarPath)) {
-                return Files.readAllBytes(avatarPath);
-            }
-            throw new RuntimeException("Avatar not found for user: " + userId);
+            return Files.readAllBytes(avatarPath);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to read avatar for user: " + userId, e);
+            throw new IllegalStateException("Failed to read avatar for user: " + userId, e);
         }
     }
 

@@ -19,7 +19,7 @@
 
     <context-param>
     <param-name>avatar-directory</param-name>
-    <param-value>/tmp/wingspan-avatars</param-value>
+    <param-value>/Users/tarnowsky/wingspan-avatars</param-value>
 </context-param>
 
 </web-app>

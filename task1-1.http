@@ -1,0 +1,75 @@
+##############################################################################
+# TASK 1: User Management
+###############################################################################
+
+# 1. Retrieve a list of all users (4 test users)
+GET http://localhost:9080/wingspan/api/users
+
+###
+
+# 2. Retrieve a specific user - admin
+GET http://localhost:9080/wingspan/api/users/c4804e0f-769e-4ab9-9ebe-0578fb4f00a6
+
+###
+
+# 3. Retrieve a non-existent user (should return 404)
+GET http://localhost:9080/wingspan/api/users/00000000-0000-0000-0000-000000000000
+
+###
+
+# 4. Create a new user (PUT)
+PUT http://localhost:9080/wingspan/api/users/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+Content-Type: application/json
+
+{
+  "login": "newuser",
+  "password": "password123",
+  "birthdate": "1995-05-15",
+  "userRoles": ["USER"]
+}
+
+###
+
+# 5. Retrieve the newly created user
+GET http://localhost:9080/wingspan/api/users/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+
+###
+
+# 6. Attempt to create the same user again (should return an error)
+PUT http://localhost:9080/wingspan/api/users/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+Content-Type: application/json
+
+{
+  "login": "newuser2",
+  "password": "password456",
+  "birthdate": "1996-06-16",
+  "userRoles": ["USER"]
+}
+
+###
+
+# 7. Partially update an existing user (PATCH)
+PATCH http://localhost:9080/wingspan/api/users/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+Content-Type: application/json
+
+{
+  "login": "updateduser",
+  "birthdate": "1995-12-25"
+}
+
+###
+
+# 8. Retrieve the updated user
+GET http://localhost:9080/wingspan/api/users/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+
+###
+
+# 9. Delete a user
+DELETE http://localhost:9080/wingspan/api/users/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+
+###
+
+# 10. Retrieve the deleted user (should return 404)
+GET http://localhost:9080/wingspan/api/users/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+
+###

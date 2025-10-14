@@ -21,10 +21,6 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Central API servlet for fetching all request from the client and preparing responses. Servlet API does not allow
- * named path parameters so wildcard is used.
- */
 @WebServlet(urlPatterns = {ApiServlet.Paths.API + "/*"})
 @MultipartConfig(maxFileSize = 200 * 1024)
 public class ApiServlet extends HttpServlet {
@@ -98,11 +94,6 @@ public class ApiServlet extends HttpServlet {
         public static final Pattern USER_AVATAR = Pattern.compile("/users/(%s)/avatar".formatted(UUID.pattern()));
     }
 
-    /**
-     * JSON-B mapping object. According to open liberty documentation creating this is expensive. The JSON-B is only one
-     * of many solutions. JSON strings can be built by hand {@link StringBuilder} or with JSON-P API. Both JSON-B and
-     * JSON-P are part of Jakarta EE whereas JSON-B is newer standard.
-     */
     private final Jsonb jsonb = JsonbBuilder.create();
 
     @Override
@@ -176,9 +167,13 @@ public class ApiServlet extends HttpServlet {
             } else if (path.matches(Patterns.USER_AVATAR.pattern())) {
                 response.setContentType("image/png");
                 UUID uuid = extractUuid(Patterns.USER_AVATAR, path);
-                byte[] avatar = userController.getUserAvatar(uuid);
-                response.setContentLength(avatar.length);
-                response.getOutputStream().write(avatar);
+                try {
+                    byte[] avatar = userController.getUserAvatar(uuid);
+                    response.setContentLength(avatar.length);
+                    response.getOutputStream().write(avatar);
+                } catch (IllegalStateException e) {
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Avatar not found");
+                }
                 return;
             }
         }

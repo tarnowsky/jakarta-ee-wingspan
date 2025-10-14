@@ -1,0 +1,288 @@
+##############################################################################
+# TASK 1: User Management
+###############################################################################
+
+# 1. Retrieve a list of all users (4 test users)
+GET http://localhost:9080/wingspan/api/users
+
+###
+
+# 2. Retrieve a specific user - admin
+GET http://localhost:9080/wingspan/api/users/c4804e0f-769e-4ab9-9ebe-0578fb4f00a6
+
+###
+
+# 3. Retrieve a non-existent user (should return 404)
+GET http://localhost:9080/wingspan/api/users/00000000-0000-0000-0000-000000000000
+
+###
+
+# 4. Create a new user (PUT)
+PUT http://localhost:9080/wingspan/api/users/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+Content-Type: application/json
+
+{
+  "login": "newuser",
+  "password": "password123",
+  "birthdate": "1995-05-15",
+  "userRoles": ["USER"]
+}
+
+###
+
+# 5. Retrieve the newly created user
+GET http://localhost:9080/wingspan/api/users/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+
+###
+
+# 6. Attempt to create the same user again (should return an error)
+PUT http://localhost:9080/wingspan/api/users/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+Content-Type: application/json
+
+{
+  "login": "newuser2",
+  "password": "password456",
+  "birthdate": "1996-06-16",
+  "userRoles": ["USER"]
+}
+
+###
+
+# 7. Partially update an existing user (PATCH)
+PATCH http://localhost:9080/wingspan/api/users/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+Content-Type: application/json
+
+{
+  "login": "updateduser",
+  "birthdate": "1995-12-25"
+}
+
+###
+
+# 8. Retrieve the updated user
+GET http://localhost:9080/wingspan/api/users/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+
+###
+
+# 9. Delete a user
+DELETE http://localhost:9080/wingspan/api/users/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+
+###
+
+# 10. Retrieve the deleted user (should return 404)
+GET http://localhost:9080/wingspan/api/users/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+
+###
+
+
+###############################################################################
+# TASK 2: User Avatar Management
+###############################################################################
+
+# 1. Upload an avatar for user 'tarnowsky' (PNG)
+PUT http://localhost:9080/wingspan/api/users/81e1c2a9-7f57-439b-b53d-6db88b071e4e/avatar
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="avatar"; filename="tarnowsky-avatar.jpeg"
+
+< Wingspan/src/main/resources/pl/edu/pg/eti/kask/wingspan/configuration/user/avatar_1.jpeg
+--boundary--
+
+###
+
+# 2. Retrieve avatar for user 'tarnowsky'
+GET http://localhost:9080/wingspan/api/users/81e1c2a9-7f57-439b-b53d-6db88b071e4e/avatar
+
+###
+
+# 3. Overwrite avatar for user 'tarnowsky' (new file)
+PUT http://localhost:9080/wingspan/api/users/81e1c2a9-7f57-439b-b53d-6db88b071e4e/avatar
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="avatar"; filename="tarnowsky-new-avatar.png"
+
+< Wingspan/src/main/resources/pl/edu/pg/eti/kask/wingspan/configuration/user/avatar_2.jpeg
+--boundary--
+
+###
+
+# 4. Retrieve the new avatar for user 'tarnowsky'
+GET http://localhost:9080/wingspan/api/users/81e1c2a9-7f57-439b-b53d-6db88b071e4e/avatar
+
+###
+
+# 5. Upload avatar for user 'admin'
+PUT http://localhost:9080/wingspan/api/users/c4804e0f-769e-4ab9-9ebe-0578fb4f00a6/avatar
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="avatar"; filename="admin-avatar.png"
+
+< Wingspan/src/main/resources/pl/edu/pg/eti/kask/wingspan/configuration/user/avatar_1.jpeg
+--boundary--
+
+###
+
+# 6. Retrieve avatar for user 'admin'
+GET http://localhost:9080/wingspan/api/users/c4804e0f-769e-4ab9-9ebe-0578fb4f00a6/avatar
+
+###
+
+# 7. Delete avatar for user 'tarnowsky'
+DELETE http://localhost:9080/wingspan/api/users/81e1c2a9-7f57-439b-b53d-6db88b071e4e/avatar
+
+###
+
+# 8. Attempt to retrieve deleted avatar (should return an error)
+GET http://localhost:9080/wingspan/api/users/81e1c2a9-7f57-439b-b53d-6db88b071e4e/avatar
+
+###
+
+# 9. Attempt to retrieve avatar for a non-existent user (should return an error)
+GET http://localhost:9080/wingspan/api/users/00000000-0000-0000-0000-000000000000/avatar
+
+###
+
+# 10. Delete avatar for user 'admin'
+DELETE http://localhost:9080/wingspan/api/users/c4804e0f-769e-4ab9-9ebe-0578fb4f00a6/avatar
+
+###
+
+##############################################################################
+##############################################################################
+##############################################################################
+
+# Get all birds.
+
+GET http://localhost:9080/wingspan/api/birds
+
+###
+
+# Get single character.
+
+GET http://localhost:9080/wingspan/api/birds/525d3e7b-bb1f-4c13-bf17-926d1a12e4c0
+
+###
+
+# Get single character. Not existing, created later.
+
+GET http://localhost:9080/wingspan/api/birds/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+
+###
+
+# Get single character portrait.
+
+GET http://localhost:9080/wingspan/api/birds/525d3e7b-bb1f-4c13-bf17-926d1a12e4c0/portrait
+
+###
+
+# Get single character portrait. Not existing, created later.
+
+GET http://localhost:9080/wingspan/api/birds/3c6f1eb1-8069-44ab-988f-d7fed2b65d87/portrait
+
+###
+
+# Create new character.
+
+PUT http://localhost:9080/wingspan/api/birds/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+Content-Type: application/json
+
+{
+  "name": "Sigrid",
+  "background": "No one special.",
+  "age": 18,
+  "strength": 12,
+  "constitution": 12,
+  "charisma": 12,
+  "health": 24,
+  "action": "f5875513-bf7b-4ae1-b8a5-5b70a1b90e76"
+}
+
+###
+
+# Create character portrait.
+
+PUT http://localhost:9080/wingspan/api/birds/3c6f1eb1-8069-44ab-988f-d7fed2b65d87/portrait
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="portrait"; filename="sigrid.png'
+
+< wingspan/src/main/resources/pl/edu/pg/eti/kask/rpg/configuration/avatar/sigrid.png
+--boundary--
+
+###
+
+# Create new character. Not existing action.
+
+PUT http://localhost:9080/wingspan/api/birds/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+Content-Type: application/json
+
+{
+  "name": "Sigrid",
+  "background": "No one special.",
+  "age": 18,
+  "strength": 12,
+  "constitution": 12,
+  "charisma": 12,
+  "action": "3bb5b0d5-7e22-466f-8c3f-be4baa3d3b8c"
+}
+
+###
+
+# Update character.
+
+PATCH http://localhost:9080/wingspan/api/birds/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+Content-Type: application/json
+
+{
+  "name": "Sir Sigrid",
+  "background": "Someone well known.",
+  "age": 30
+}
+
+###
+
+# Delete character.
+
+DELETE http://localhost:9080/wingspan/api/birds/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+
+###
+
+# Get all actions.
+
+GET http://localhost:9080/wingspan/api/actions
+
+###
+
+# Get all action birds.
+
+GET http://localhost:9080/wingspan/api/actions/f5875513-bf7b-4ae1-b8a5-5b70a1b90e76/birds
+
+###
+
+# Get all action birds. Not existing.
+
+GET http://localhost:9080/wingspan/api/actions/d8b50a43-ed45-4441-9bcb-5db7782b47f6/birds
+
+###
+
+# Get all user birds.
+
+GET http://localhost:9080/wingspan/api/users/81e1c2a9-7f57-439b-b53d-6db88b071e4e/birds
+
+###
+
+# Get all user birds. Empty.
+
+GET http://localhost:9080/wingspan/api/users/c4804e0f-769e-4ab9-9ebe-0578fb4f00a6/birds
+
+###
+
+# Get all user birds. Not existing.
+
+GET http://localhost:9080/wingspan/api/users/c07cab55-a56f-4d67-b351-175bb7a94b7a/birds
+
+
