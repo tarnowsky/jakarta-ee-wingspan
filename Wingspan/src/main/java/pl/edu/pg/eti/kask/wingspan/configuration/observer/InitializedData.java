@@ -1,5 +1,10 @@
-package pl.edu.pg.eti.kask.wingspan.configuration.listener;
+package pl.edu.pg.eti.kask.wingspan.configuration.observer;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Initialized;
+import jakarta.enterprise.context.control.RequestContextController;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
@@ -26,31 +31,44 @@ import java.util.UUID;
  * cases of empty database. When using persistence storage application instance should be initialized only during first
  * run in order to init database with starting data. Good place to create first default admin user.
  */
-@WebListener//using annotation does not allow configuring order
-public class InitializedData implements ServletContextListener {
+@ApplicationScoped
+public class InitializedData {
 
     /**
      * Bird service.
      */
-    private BirdService birdService;
+    private final BirdService birdService;
 
     /**
      * User service.
      */
-    private UserService userService;
+    private final UserService userService;
 
     /**
      * Action service.
      */
-    private ActionService actionService;
+    private final ActionService actionService;
 
-    @Override
-    public void contextInitialized(ServletContextEvent event) {
-        birdService = (BirdService) event.getServletContext().getAttribute("birdService");
-        userService = (UserService) event.getServletContext().getAttribute("userService");
-        actionService = (ActionService) event.getServletContext().getAttribute("actionService");
-        init();
+    /**
+     * The CDI container provides a built-in instance of {@link RequestContextController} that is dependent scoped for
+     * the purposes of activating and deactivating.
+     */
+    private final RequestContextController requestContextController;
+
+    @Inject
+    public InitializedData(
+            BirdService birdService,
+            UserService userService,
+            ActionService actionService,
+            RequestContextController requestContextController
+            ) {
+        this.birdService = birdService;
+        this.userService = userService;
+        this.actionService = actionService;
+        this.requestContextController = requestContextController;
     }
+
+    public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) Object init) { init(); }
 
     /**
      * Initializes database with some example values. Should be called after creating this object. This object should be
@@ -58,7 +76,7 @@ public class InitializedData implements ServletContextListener {
      */
     @SneakyThrows
     private void init() {
-
+        requestContextController.activate();
 
         User admin = User.builder()
                 .id(UUID.fromString("c4804e0f-769e-4ab9-9ebe-0578fb4f00a6"))
@@ -247,6 +265,8 @@ public class InitializedData implements ServletContextListener {
         birdService.create(scaledQuail);
         birdService.create(canvasback);
         birdService.create(brant);
+
+        requestContextController.deactivate();
     }
 
     /**

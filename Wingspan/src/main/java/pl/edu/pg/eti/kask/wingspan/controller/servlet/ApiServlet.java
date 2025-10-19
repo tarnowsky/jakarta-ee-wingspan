@@ -1,5 +1,6 @@
 package pl.edu.pg.eti.kask.wingspan.controller.servlet;
 
+import jakarta.inject.Inject;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.servlet.ServletException;
@@ -28,14 +29,17 @@ public class ApiServlet extends HttpServlet {
     /**
      * Controller for managing collections birds' representations.
      */
-    private BirdController birdController;
+    private final BirdController birdController;
 
     /**
      * Controller for managing collections actions' representations.
      */
-    private ActionController actionController;
+    private final ActionController actionController;
 
-    private UserController userController;
+    /**
+     * Controller for managing collections users' representations.
+     */
+    private final UserController userController;
 
     /**
      * Definition of paths supported by this servlet. Separate inner class provides composition for static fields.
@@ -96,26 +100,19 @@ public class ApiServlet extends HttpServlet {
 
     private final Jsonb jsonb = JsonbBuilder.create();
 
+    @Inject
+    public ApiServlet(BirdController birdController, ActionController actionController, UserController userController) {
+        this.birdController = birdController;
+        this.actionController = actionController;
+        this.userController = userController;
+    }
+
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getMethod().equals("PATCH")) {
             doPatch(request, response);
         } else {
             super.service(request, response);
-        }
-    }
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        birdController = (BirdController) getServletContext().getAttribute("birdController");
-        actionController = (ActionController) getServletContext().getAttribute("actionController");
-        userController = (UserController) getServletContext().getAttribute("userController");
-        System.out.println("BirdController: " + (birdController != null ? "OK" : "NULL"));
-        System.out.println("ActionController: " + (actionController != null ? "OK" : "NULL"));
-
-        if (birdController == null || actionController == null) {
-            throw new ServletException("Kontrolery nie zostały zainicjalizowane");
         }
     }
 

@@ -1,5 +1,7 @@
 package pl.edu.pg.eti.kask.wingspan.bird.repository.memory;
 
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import pl.edu.pg.eti.kask.wingspan.bird.entity.Bird;
 import pl.edu.pg.eti.kask.wingspan.bird.entity.Action;
 import pl.edu.pg.eti.kask.wingspan.bird.repository.api.BirdRepository;
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 /**
  * Repository for bird entity. Repositories should be used in business layer (e.g.: in services).
  */
+@RequestScoped
 public class BirdInMemoryRepository implements BirdRepository {
 
     /**
@@ -24,6 +27,7 @@ public class BirdInMemoryRepository implements BirdRepository {
     /**
      * @param store data store
      */
+    @Inject
     public BirdInMemoryRepository(DataStore store) {
         this.store = store;
     }

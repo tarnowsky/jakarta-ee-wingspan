@@ -1,5 +1,7 @@
 package pl.edu.pg.eti.kask.wingspan.bird.repository.memory;
 
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import pl.edu.pg.eti.kask.wingspan.bird.entity.Action;
 import pl.edu.pg.eti.kask.wingspan.bird.repository.api.ActionRepository;
 import pl.edu.pg.eti.kask.wingspan.datastore.component.DataStore;
@@ -11,6 +13,7 @@ import java.util.UUID;
 /**
  * Repository for action entity. Repositories should be used in business layer (e.g.: in services).
  */
+@RequestScoped
 public class ActionInMemoryRepository implements ActionRepository {
 
     /**
@@ -21,6 +24,7 @@ public class ActionInMemoryRepository implements ActionRepository {
     /**
      * @param store data store
      */
+    @Inject
     public ActionInMemoryRepository(DataStore store) {
         this.store = store;
     }

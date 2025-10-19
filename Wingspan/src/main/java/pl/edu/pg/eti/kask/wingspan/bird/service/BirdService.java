@@ -1,5 +1,8 @@
 package pl.edu.pg.eti.kask.wingspan.bird.service;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import lombok.NoArgsConstructor;
 import pl.edu.pg.eti.kask.wingspan.bird.entity.Bird;
 import pl.edu.pg.eti.kask.wingspan.bird.repository.api.BirdRepository;
 import pl.edu.pg.eti.kask.wingspan.bird.repository.api.ActionRepository;
@@ -15,6 +18,8 @@ import java.util.UUID;
 /**
  * Service layer for all business actions regarding bird entity.
  */
+@ApplicationScoped
+@NoArgsConstructor(force = true)
 public class BirdService {
 
     /**
@@ -37,6 +42,7 @@ public class BirdService {
      * @param actionRepository repository for action entity
      * @param userRepository repository for user entity
      */
+    @Inject
     public BirdService(BirdRepository birdRepository, ActionRepository actionRepository, UserRepository userRepository) {
         this.birdRepository = birdRepository;
         this.actionRepository = actionRepository;

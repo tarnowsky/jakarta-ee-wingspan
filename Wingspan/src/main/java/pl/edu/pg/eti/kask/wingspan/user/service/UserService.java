@@ -1,5 +1,8 @@
 package pl.edu.pg.eti.kask.wingspan.user.service;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import lombok.NoArgsConstructor;
 import pl.edu.pg.eti.kask.wingspan.crypto.component.Pbkdf2PasswordHash;
 import pl.edu.pg.eti.kask.wingspan.user.entity.User;
 import pl.edu.pg.eti.kask.wingspan.user.repository.api.UserRepository;
@@ -8,10 +11,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@ApplicationScoped
+@NoArgsConstructor(force = true)
 public class UserService {
     private final UserRepository repository;
     private final Pbkdf2PasswordHash passwordHash;
 
+    @Inject
     public UserService(UserRepository repository, Pbkdf2PasswordHash passwordHash) {
         this.repository = repository;
         this.passwordHash = passwordHash;

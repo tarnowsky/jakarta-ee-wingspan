@@ -1,5 +1,8 @@
 package pl.edu.pg.eti.kask.wingspan.bird.service;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import lombok.NoArgsConstructor;
 import pl.edu.pg.eti.kask.wingspan.bird.entity.Action;
 import pl.edu.pg.eti.kask.wingspan.bird.repository.api.ActionRepository;
 
@@ -10,6 +13,8 @@ import java.util.UUID;
 /**
  * Service layer for all business actions regarding bird's action entity.
  */
+@ApplicationScoped
+@NoArgsConstructor(force = true)
 public class ActionService {
 
     /**
@@ -20,6 +25,7 @@ public class ActionService {
     /**
      * @param repository repository for action entity
      */
+    @Inject
     public ActionService(ActionRepository repository) {
         this.repository = repository;
     }

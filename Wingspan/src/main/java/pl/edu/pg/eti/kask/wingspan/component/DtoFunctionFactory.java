@@ -1,5 +1,6 @@
 package pl.edu.pg.eti.kask.wingspan.component;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import pl.edu.pg.eti.kask.wingspan.bird.dto.GetBirdResponse;
 import pl.edu.pg.eti.kask.wingspan.bird.dto.GetBirdsResponse;
 import pl.edu.pg.eti.kask.wingspan.bird.dto.GetActionResponse;
@@ -29,6 +30,7 @@ import java.util.function.Function;
  * Factor for creating {@link Function} implementation for converting between various objects used in different layers.
  * Instead of injecting multiple function objects single factory is injected.
  */
+@ApplicationScoped
 public class DtoFunctionFactory {
 
     /**

@@ -1,5 +1,10 @@
 package pl.edu.pg.eti.kask.wingspan.user.service;
 
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import lombok.NoArgsConstructor;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -8,10 +13,13 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
+@RequestScoped
+@NoArgsConstructor(force = true)
 public class UserAvatarService {
     private final Path avatarDirectory;
 
-    public UserAvatarService(String avatarDirectory) {
+    @Inject
+    public UserAvatarService(@Named("avatarDirectory") String avatarDirectory) {
         this.avatarDirectory = Paths.get(avatarDirectory);
         try {
             Files.createDirectories(this.avatarDirectory);

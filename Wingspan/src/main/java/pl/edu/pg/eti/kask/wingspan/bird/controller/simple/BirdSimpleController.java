@@ -1,5 +1,7 @@
 package pl.edu.pg.eti.kask.wingspan.bird.controller.simple;
 
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import pl.edu.pg.eti.kask.wingspan.bird.controller.api.BirdController;
 import pl.edu.pg.eti.kask.wingspan.bird.dto.GetBirdResponse;
 import pl.edu.pg.eti.kask.wingspan.bird.dto.GetBirdsResponse;
@@ -17,6 +19,7 @@ import java.util.UUID;
 /**
  * Simple framework agnostic implementation of controller.
  */
+@RequestScoped
 public class BirdSimpleController implements BirdController {
 
     /**
@@ -33,6 +36,7 @@ public class BirdSimpleController implements BirdController {
      * @param service bird service
      * @param factory factory producing functions for conversion between DTO and entities
      */
+    @Inject
     public BirdSimpleController(BirdService service, DtoFunctionFactory factory) {
         this.service = service;
         this.factory = factory;

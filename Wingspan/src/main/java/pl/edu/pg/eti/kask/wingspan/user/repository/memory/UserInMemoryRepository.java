@@ -1,5 +1,7 @@
 package pl.edu.pg.eti.kask.wingspan.user.repository.memory;
 
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import pl.edu.pg.eti.kask.wingspan.datastore.component.DataStore;
 import pl.edu.pg.eti.kask.wingspan.user.entity.User;
 import pl.edu.pg.eti.kask.wingspan.user.repository.api.UserRepository;
@@ -14,6 +16,7 @@ import java.util.UUID;
  * <p>This implementation uses a DataStore to manage user entities in memory.
  * In future versions, this should be replaced with a database-backed implementation.</p>
  */
+@RequestScoped
 public class UserInMemoryRepository implements UserRepository {
     /**
      * Underlying data store. In future should be replaced with database connection.
@@ -25,6 +28,7 @@ public class UserInMemoryRepository implements UserRepository {
      *
      * @param store data store for managing user entities
      */
+    @Inject
     public UserInMemoryRepository(DataStore store) {
         this.store = store;
     }

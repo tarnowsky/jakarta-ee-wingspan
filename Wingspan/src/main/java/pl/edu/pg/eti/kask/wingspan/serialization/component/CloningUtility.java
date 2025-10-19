@@ -1,5 +1,6 @@
 package pl.edu.pg.eti.kask.wingspan.serialization.component;
 
+import jakarta.enterprise.context.Dependent;
 import lombok.SneakyThrows;
 import lombok.extern.java.Log;
 
@@ -13,6 +14,7 @@ import java.io.*;
  * without external libraries is serialization mechanism.
  */
 @Log
+@Dependent
 public class CloningUtility {
 
     /**
