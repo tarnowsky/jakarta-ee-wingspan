@@ -11,10 +11,7 @@ import lombok.ToString;
 
 import java.time.LocalDate;
 
-/**
- * PATCH user request. Contains only fields which can be changed byt the user while updating its profile. User is
- * defined in {@link pl.edu.pg.eti.kask.wingspan.user.entity.User}.
- */
+
 @Getter
 @Setter
 @Builder
@@ -24,24 +21,16 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 public class PatchUserRequest {
 
-    /**
-     * User's name.
-     */
+    
     private String name;
 
-    /**
-     * User's surname.
-     */
+    
     private String surname;
 
-    /**
-     * User's birthday.
-     */
+    
     private LocalDate birthDate;
 
-    /**
-     * User's email.
-     */
+    
     private String email;
 
 }

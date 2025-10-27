@@ -10,37 +10,23 @@ import java.security.SecureRandom;
 import java.security.spec.KeySpec;
 import java.util.Base64;
 
-/**
- * Components responsible for hashing password. This implementation uses Password-Based Key Derivation Function 2
- * (PBKDF2) with SHA256 hash algorithm used in Hash-based Message Authentication Code (HMAC).
- */
+
 @Dependent
 public class Pbkdf2PasswordHash {
 
-    /**
-     * Name of the algorithm.
-     */
+    
     private static final String ALGORITHM = "PBKDF2WithHmacSHA256";
 
-    /**
-     * Salt length.
-     */
+    
     private static final int SALT_LENGTH = 16;
 
-    /**
-     * Hash length.
-     */
+    
     private static final int HASH_LENGTH = 32;
 
-    /**
-     * Number of iterations.
-     */
+    
     private static final int ITERATIONS = 10000;
 
-    /**
-     * @param password user's password
-     * @return concatenation of salt and hashed password with salt.
-     */
+    
     @SneakyThrows
     public String generate(char[] password) {
         byte[] salt = generateSalt();
@@ -57,11 +43,7 @@ public class Pbkdf2PasswordHash {
         return Base64.getEncoder().encodeToString(saltPlusHash);
     }
 
-    /**
-     * @param password       user's password
-     * @param hashedPassword hashed password from database
-     * @return true if user's password is correct
-     */
+    
     @SneakyThrows
     public boolean verify(char[] password, String hashedPassword) {
         byte[] saltPlusHash = Base64.getDecoder().decode(hashedPassword);
@@ -80,9 +62,7 @@ public class Pbkdf2PasswordHash {
         return MessageDigest.isEqual(hash, computedHash);
     }
 
-    /**
-     * @return random salt
-     */
+    
     private byte[] generateSalt() {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[SALT_LENGTH];

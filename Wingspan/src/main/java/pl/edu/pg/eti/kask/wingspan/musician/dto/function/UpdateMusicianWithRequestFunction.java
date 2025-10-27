@@ -5,10 +5,7 @@ import pl.edu.pg.eti.kask.wingspan.musician.entity.Musician;
 
 import java.util.function.BiFunction;
 
-/**
- * Returns new instance of {@link Musician} based on provided value and updated with values from
- * {@link PatchMusicianRequest}.
- */
+
 public class UpdateMusicianWithRequestFunction implements BiFunction<Musician, PatchMusicianRequest, Musician> {
 
     @Override

@@ -12,9 +12,7 @@ import lombok.ToString;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * GET genres response. Returns list of all available genres names.
- */
+
 @Getter
 @Setter
 @Builder
@@ -24,9 +22,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class GetGenresResponse {
 
-    /**
-     * Represents single genre in list.
-     */
+    
     @Getter
     @Setter
     @Builder
@@ -36,21 +32,15 @@ public class GetGenresResponse {
     @EqualsAndHashCode
     public static class Genre {
 
-        /**
-         * Unique id identifying genre.
-         */
+        
         private UUID id;
 
-        /**
-         * Name of the genre.
-         */
+        
         private String name;
 
     }
 
-    /**
-     * List of all genres.
-     */
+    
     private List<Genre> genres;
 
 }

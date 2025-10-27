@@ -5,9 +5,7 @@ import pl.edu.pg.eti.kask.wingspan.user.entity.User;
 
 import java.util.function.Function;
 
-/**
- * Converts {@link User} to {@link GetUserResponse}.
- */
+
 public class UserToResponseFunction implements Function<User, GetUserResponse> {
 
     @Override

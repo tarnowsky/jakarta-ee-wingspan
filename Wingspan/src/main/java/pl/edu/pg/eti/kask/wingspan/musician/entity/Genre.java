@@ -14,10 +14,7 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.UUID;
 
-/**
- * Entity class for game musicians' genres (classes). Describes name of the genre and techniques available on
- * different levels.
- */
+
 @Getter
 @Setter
 @Builder
@@ -27,20 +24,13 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class Genre implements Serializable {
 
-    /**
-     * Unique id (primary key).
-     */
+    
     private UUID id;
 
-    /**
-     * Name of the genre.
-     */
+    
     private String name;
 
-    /**
-     * Set of techniques available on different levels. While leveling up, musician gains access to new techniques. One technique
-     * every limit level. There is no rule which levels are limit ones.
-     */
+    
     @Singular
     private Map<Integer, Technique> techniques;
 

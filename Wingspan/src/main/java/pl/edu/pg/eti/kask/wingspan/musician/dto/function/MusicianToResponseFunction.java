@@ -5,9 +5,7 @@ import pl.edu.pg.eti.kask.wingspan.musician.entity.Musician;
 
 import java.util.function.Function;
 
-/**
- * Converts {@link Musician} to {@link GetMusicianResponse}.
- */
+
 public class MusicianToResponseFunction implements Function<Musician, GetMusicianResponse> {
 
     @Override

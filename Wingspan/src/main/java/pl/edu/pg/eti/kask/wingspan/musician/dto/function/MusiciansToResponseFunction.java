@@ -6,9 +6,7 @@ import pl.edu.pg.eti.kask.wingspan.musician.entity.Musician;
 import java.util.List;
 import java.util.function.Function;
 
-/**
- * Coverts {@link List<Musician>} to {@link GetMusiciansResponse}.
- */
+
 public class MusiciansToResponseFunction implements Function<List<Musician>, GetMusiciansResponse> {
 
     @Override

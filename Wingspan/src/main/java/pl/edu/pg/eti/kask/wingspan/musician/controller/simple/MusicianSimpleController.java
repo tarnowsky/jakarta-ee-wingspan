@@ -16,26 +16,17 @@ import pl.edu.pg.eti.kask.wingspan.controller.servlet.exception.NotFoundExceptio
 import java.io.InputStream;
 import java.util.UUID;
 
-/**
- * Simple framework agnostic implementation of controller.
- */
+
 @RequestScoped
 public class MusicianSimpleController implements MusicianController {
 
-    /**
-     * Musician service.
-     */
+    
     private final MusicianService service;
 
-    /**
-     * Factory producing functions for conversion between DTO and entities.
-     */
+    
     private final DtoFunctionFactory factory;
 
-    /**
-     * @param service musician service
-     * @param factory factory producing functions for conversion between DTO and entities
-     */
+    
     @Inject
     public MusicianSimpleController(MusicianService service, DtoFunctionFactory factory) {
         this.service = service;

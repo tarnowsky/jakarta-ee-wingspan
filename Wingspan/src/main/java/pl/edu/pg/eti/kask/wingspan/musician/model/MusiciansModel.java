@@ -14,9 +14,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * JSF view model class in order to not use entity classes. Represents list of musicians to be displayed.
- */
+
 @Getter
 @Setter
 @Builder
@@ -26,9 +24,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class MusiciansModel implements Serializable {
 
-    /**
-     * Represents single musician in list.
-     */
+    
     @Getter
     @Setter
     @Builder
@@ -38,21 +34,15 @@ public class MusiciansModel implements Serializable {
     @EqualsAndHashCode
     public static class Musician {
 
-        /**
-         * Unique id identifying musician.
-         */
+        
         private UUID id;
 
-        /**
-         * Name of the musician.
-         */
+        
         private String name;
 
     }
 
-    /**
-     * Name of the selected musicians.
-     */
+    
     @Singular
     private List<Musician> musicians;
 

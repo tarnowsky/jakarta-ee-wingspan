@@ -13,20 +13,14 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-/**
- * Repository for musician entity. Repositories should be used in business layer (e.g.: in services).
- */
+
 @RequestScoped
 public class MusicianInMemoryRepository implements MusicianRepository {
 
-    /**
-     * Underlying data store. In future should be replaced with database connection.
-     */
+    
     private final DataStore store;
 
-    /**
-     * @param store data store
-     */
+    
     @Inject
     public MusicianInMemoryRepository(DataStore store) {
         this.store = store;

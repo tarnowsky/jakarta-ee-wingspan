@@ -7,10 +7,7 @@ import pl.edu.pg.eti.kask.wingspan.musician.entity.Genre;
 import java.util.UUID;
 import java.util.function.BiFunction;
 
-/**
- * Converts {@link PutMusicianRequest} to {@link Musician}. Caution, some fields are not set as they should be updated
- * by business logic.
- */
+
 public class RequestToMusicianFunction implements BiFunction<UUID, PutMusicianRequest, Musician> {
 
     @Override

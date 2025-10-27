@@ -10,20 +10,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-/**
- * Repository for genre entity. Repositories should be used in business layer (e.g.: in services).
- */
+
 @RequestScoped
 public class GenreInMemoryRepository implements GenreRepository {
 
-    /**
-     * Underlying data store. In future should be replaced with database connection.
-     */
+    
     private final DataStore store;
 
-    /**
-     * @param store data store
-     */
+    
     @Inject
     public GenreInMemoryRepository(DataStore store) {
         this.store = store;

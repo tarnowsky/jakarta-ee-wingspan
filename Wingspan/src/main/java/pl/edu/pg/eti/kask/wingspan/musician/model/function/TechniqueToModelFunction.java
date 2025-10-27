@@ -6,9 +6,7 @@ import pl.edu.pg.eti.kask.wingspan.musician.model.TechniqueModel;
 import java.io.Serializable;
 import java.util.function.Function;
 
-/**
- * Converts {@link Technique} to {@link TechniqueModel}.
- */
+
 public class TechniqueToModelFunction implements Function<Technique, TechniqueModel>, Serializable {
 
     @Override

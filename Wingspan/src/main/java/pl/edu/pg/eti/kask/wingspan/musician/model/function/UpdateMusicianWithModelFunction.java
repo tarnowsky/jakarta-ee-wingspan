@@ -7,10 +7,7 @@ import pl.edu.pg.eti.kask.wingspan.musician.model.MusicianEditModel;
 import java.io.Serializable;
 import java.util.function.BiFunction;
 
-/**
- * Returns new instance of {@link Musician} based on provided value and updated with values from
- * {@link MusicianEditModel}.
- */
+
 public class UpdateMusicianWithModelFunction implements BiFunction<Musician, MusicianEditModel, Musician>, Serializable {
 
     @Override

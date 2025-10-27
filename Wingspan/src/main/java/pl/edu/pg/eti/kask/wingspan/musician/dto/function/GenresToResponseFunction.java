@@ -6,9 +6,7 @@ import pl.edu.pg.eti.kask.wingspan.musician.entity.Genre;
 import java.util.List;
 import java.util.function.Function;
 
-/**
- * Converts {@link List<Genre>} to {@link GetGenresResponse}.
- */
+
 public class GenresToResponseFunction implements Function<List<Genre>, GetGenresResponse> {
 
     @Override

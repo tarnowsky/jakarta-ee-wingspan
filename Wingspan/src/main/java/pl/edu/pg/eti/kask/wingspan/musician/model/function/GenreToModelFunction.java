@@ -9,19 +9,13 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-/**
- * Converts {@link Genre} to {@link GenreModel}.
- */
+
 public class GenreToModelFunction implements Function<Genre, GenreModel>, Serializable {
 
-    /**
-     * Converts {@link pl.edu.pg.eti.kask.wingspan.musician.entity.Technique} to {@link TechniqueModel}.
-     */
+    
     private final TechniqueToModelFunction techniqueToModelFunction;
 
-    /**
-     * @param techniqueToModelFunction converts {@link pl.edu.pg.eti.kask.wingspan.musician.entity.Technique} to {@link TechniqueModel}
-     */
+    
     public GenreToModelFunction(TechniqueToModelFunction techniqueToModelFunction) {
         this.techniqueToModelFunction = techniqueToModelFunction;
     }

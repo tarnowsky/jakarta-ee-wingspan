@@ -20,41 +20,23 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Listener started automatically on CDI application context initialized. Injects proxy to the services and fills
- * database with default content. When using persistence storage application instance should be initialized only during
- * first run in order to init database with starting data. Good place to create first default admin user.
- */
+
 @ApplicationScoped
 public class InitializedData {
 
-    /**
-     * Musician service.
-     */
+    
     private final MusicianService musicianService;
 
-    /**
-     * User service.
-     */
+    
     private final UserService userService;
 
-    /**
-     * Genre service.
-     */
+    
     private final GenreService genreService;
 
-    /**
-     * The CDI container provides a built-in instance of {@link RequestContextController} that is dependent scoped for
-     * the purposes of activating and deactivating.
-     */
+    
     private final RequestContextController requestContextController;
 
-    /**
-     * @param musicianService         musician service
-     * @param userService              user service
-     * @param genreService        genre service
-     * @param requestContextController CDI request context controller
-     */
+    
     @Inject
     public InitializedData(
             MusicianService musicianService,
@@ -72,10 +54,7 @@ public class InitializedData {
         init();
     }
 
-    /**
-     * Initializes database with some example values. Should be called after creating this object. This object should be
-     * created only once.
-     */
+    
     @SneakyThrows
     private void init() {
         requestContextController.activate();// start request scope in order to inject request scoped repositories
@@ -247,10 +226,7 @@ public class InitializedData {
         requestContextController.deactivate();
     }
 
-    /**
-     * @param name name of the desired resource
-     * @return array of bytes read from the resource
-     */
+    
     @SneakyThrows
     private byte[] getResourceAsByteArray(String name) {
         try (InputStream is = this.getClass().getResourceAsStream(name)) {

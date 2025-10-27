@@ -12,10 +12,7 @@ import lombok.ToString;
 import java.time.LocalDate;
 import java.util.UUID;
 
-/**
- * GET user response. Contains only fields which can be displayed on frontend. User is defined in
- * {@link pl.edu.pg.eti.kask.wingspan.user.entity.User}.
- */
+
 @Getter
 @Setter
 @Builder
@@ -25,34 +22,22 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class GetUserResponse {
 
-    /**
-     * Unique id identifying musician.
-     */
+    
     private UUID id;
 
-    /**
-     * User's username (login)
-     */
+    
     private String login;
 
-    /**
-     * User's name.
-     */
+    
     private String name;
 
-    /**
-     * User's surname.
-     */
+    
     private String surname;
 
-    /**
-     * User's birthdate.
-     */
+    
     private LocalDate birthDate;
 
-    /**
-     * User's email.
-     */
+    
     private String email;
 
 }

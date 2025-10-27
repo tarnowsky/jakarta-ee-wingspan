@@ -7,9 +7,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-/**
- * Converts {@link Genre} to {@link GetGenreResponse}.
- */
+
 public class GenreToResponseFunction implements Function<Genre, GetGenreResponse> {
 
     @Override

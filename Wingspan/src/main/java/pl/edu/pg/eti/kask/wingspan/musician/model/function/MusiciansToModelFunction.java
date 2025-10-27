@@ -6,9 +6,7 @@ import pl.edu.pg.eti.kask.wingspan.musician.model.MusiciansModel;
 import java.util.List;
 import java.util.function.Function;
 
-/**
- * Converts {@link List<Musician>} to {@link MusiciansModel}.
- */
+
 public class MusiciansToModelFunction implements Function<List<Musician>, MusiciansModel> {
 
     @Override

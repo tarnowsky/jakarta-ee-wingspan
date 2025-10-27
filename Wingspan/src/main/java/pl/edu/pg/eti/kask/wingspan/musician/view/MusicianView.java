@@ -17,51 +17,35 @@ import java.io.Serializable;
 import java.util.Optional;
 import java.util.UUID;
 
-/**
- * View bean for rendering single musician information.
- */
+
 @ViewScoped
 @Named
 public class MusicianView implements Serializable {
 
-    /**
-     * Service for managing musicians.
-     */
+    
     private final MusicianService service;
 
-    /**
-     * Factory producing functions for conversion between models and entities.
-     */
+    
     private final ModelFunctionFactory factory;
 
-    /**
-     * Musician id.
-     */
+    
     @Setter
     @Getter
     private UUID id;
 
-    /**
-     * Musician exposed to the view.
-     */
+    
     @Getter
     private MusicianModel musician;
 
 
-    /**
-     * @param service service for managing musicians
-     * @param factory factory producing functions for conversion between models and entities
-     */
+    
     @Inject
     public MusicianView(MusicianService service, ModelFunctionFactory factory) {
         this.service = service;
         this.factory = factory;
     }
 
-    /**
-     * In order to prevent calling service on different steps of JSF request lifecycle, model property is cached within
-     * field and initialized during init of the view.
-     */
+    
     public void init() throws IOException {
         Optional<Musician> musician = service.find(id);
         if (musician.isPresent()) {

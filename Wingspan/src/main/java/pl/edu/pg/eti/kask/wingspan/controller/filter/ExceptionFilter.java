@@ -11,9 +11,7 @@ import pl.edu.pg.eti.kask.wingspan.controller.servlet.exception.HttpRequestExcep
 
 import java.io.IOException;
 
-/**
- * Web filter with mechanism for catching exceptions and rewriting them to appropriate HTTP response statutes.
- */
+
 @WebFilter(urlPatterns = {
         ApiServlet.Paths.API + "/*"
 })

@@ -12,9 +12,7 @@ import lombok.ToString;
 import java.util.Map;
 import java.util.UUID;
 
-/**
- * JSF view model class in order to not use entity classes. Represents single genre to be displayed or selected.
- */
+
 @Getter
 @Setter
 @Builder
@@ -24,20 +22,13 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class GenreModel {
 
-    /**
-     * Genre's id.
-     */
+    
     private UUID id;
 
-    /**
-     * Name of the genre.
-     */
+    
     private String name;
 
-    /**
-     * Set of techniques available on different levels. While leveling up, musician gains access to new techniques. One technique
-     * every limit level. There is no rule which levels are limit ones.
-     */
+    
     private Map<Integer, TechniqueModel> techniques;
 
 }
