@@ -4,8 +4,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import lombok.NoArgsConstructor;
 import lombok.extern.java.Log;
-import pl.edu.pg.eti.kask.wingspan.bird.entity.Bird;
-import pl.edu.pg.eti.kask.wingspan.bird.entity.Action;
+import pl.edu.pg.eti.kask.wingspan.musician.entity.Musician;
+import pl.edu.pg.eti.kask.wingspan.musician.entity.Genre;
 import pl.edu.pg.eti.kask.wingspan.serialization.component.CloningUtility;
 import pl.edu.pg.eti.kask.wingspan.user.entity.User;
 
@@ -28,14 +28,14 @@ import java.util.stream.Collectors;
 public class DataStore {
 
     /**
-     * Set of all available actions.
+     * Set of all available genres.
      */
-    private final Set<Action> actions = new HashSet<>();
+    private final Set<Genre> genres = new HashSet<>();
 
     /**
-     * Set of all birds.
+     * Set of all musicians.
      */
-    private final Set<Bird> birds = new HashSet<>();
+    private final Set<Musician> musicians = new HashSet<>();
 
     /**
      * Set of all users.
@@ -56,76 +56,80 @@ public class DataStore {
     }
 
     /**
-     * Seeks for all actions.
+     * Seeks for all genres.
      *
-     * @return list (can be empty) of all actions
+     * @return list (can be empty) of all genres
      */
-    public synchronized List<Action> findAllActions() {
-        return actions.stream().map(cloningUtility::clone).collect(Collectors.toList());
+    public synchronized List<Genre> findAllGenres() {
+        return genres.stream()
+                .map(cloningUtility::clone)
+                .collect(Collectors.toList());
     }
 
     /**
-     * Stores new action.
+     * Stores new genre.
      *
-     * @param value new action to be stored
-     * @throws IllegalArgumentException if action with provided id already exists
+     * @param value new genre to be stored
+     * @throws IllegalArgumentException if genre with provided id already exists
      */
-    public synchronized void createAction(Action value) throws IllegalArgumentException {
-        if (actions.stream().anyMatch(action -> action.getId().equals(value.getId()))) {
-            throw new IllegalArgumentException("The action id \"%s\" is not unique".formatted(value.getId()));
+    public synchronized void createGenre(Genre value) throws IllegalArgumentException {
+        if (genres.stream().anyMatch(genre -> genre.getId().equals(value.getId()))) {
+            throw new IllegalArgumentException("The genre id \"%s\" is not unique".formatted(value.getId()));
         }
-        actions.add(cloningUtility.clone(value));
+        genres.add(cloningUtility.clone(value));
     }
 
     /**
-     * Seeks for all birds.
+     * Seeks for all musicians.
      *
-     * @return list (can be empty) of all birds
+     * @return list (can be empty) of all musicians
      */
-    public synchronized List<Bird> findAllBirds() {
-        return birds.stream().map(cloningUtility::clone).collect(Collectors.toList());
+    public synchronized List<Musician> findAllMusicians() {
+        return musicians.stream()
+                .map(cloningUtility::clone)
+                .collect(Collectors.toList());
     }
 
     /**
-     * Stores new bird.
+     * Stores new musician.
      *
-     * @param value new bird to be stored
-     * @throws IllegalArgumentException if bird with provided id already exists or when {@link User} or
-     *                                  {@link Action} with provided uuid does not exist
+     * @param value new musician to be stored
+     * @throws IllegalArgumentException if musician with provided id already exists or when {@link User} or
+     *                                  {@link Genre} with provided uuid does not exist
      */
-    public synchronized void createBird(Bird value) throws IllegalArgumentException {
-        if (birds.stream().anyMatch(bird -> bird.getId().equals(value.getId()))) {
-            throw new IllegalArgumentException("The bird id \"%s\" is not unique".formatted(value.getId()));
+    public synchronized void createMusician(Musician value) throws IllegalArgumentException {
+        if (musicians.stream().anyMatch(musician -> musician.getId().equals(value.getId()))) {
+            throw new IllegalArgumentException("The musician id \"%s\" is not unique".formatted(value.getId()));
         }
-        Bird entity = cloneWithRelationships(value);
-        birds.add(entity);
+        Musician entity = cloneWithRelationships(value);
+        musicians.add(entity);
     }
 
     /**
-     * Updates existing bird.
+     * Updates existing musician.
      *
-     * @param value bird to be updated
-     * @throws IllegalArgumentException if bird with the same id does not exist or when {@link User} or
-     *                                  {@link Action} with provided uuid does not exist
+     * @param value musician to be updated
+     * @throws IllegalArgumentException if musician with the same id does not exist or when {@link User} or
+     *                                  {@link Genre} with provided uuid does not exist
      */
-    public synchronized void updateBird(Bird value) throws IllegalArgumentException {
-        Bird entity = cloneWithRelationships(value);
-        if (birds.removeIf(bird -> bird.getId().equals(value.getId()))) {
-            birds.add(entity);
+    public synchronized void updateMusician(Musician value) throws IllegalArgumentException {
+        Musician entity = cloneWithRelationships(value);
+        if (musicians.removeIf(musician -> musician.getId().equals(value.getId()))) {
+            musicians.add(entity);
         } else {
-            throw new IllegalArgumentException("The bird with id \"%s\" does not exist".formatted(value.getId()));
+            throw new IllegalArgumentException("The musician with id \"%s\" does not exist".formatted(value.getId()));
         }
     }
 
     /**
-     * Deletes existing bird.
+     * Deletes existing musician.
      *
-     * @param id id of bird to be deleted
-     * @throws IllegalArgumentException if bird with provided id does not exist
+     * @param id id of musician to be deleted
+     * @throws IllegalArgumentException if musician with provided id does not exist
      */
-    public synchronized void deleteBird(UUID id) throws IllegalArgumentException {
-        if (!birds.removeIf(bird -> bird.getId().equals(id))) {
-            throw new IllegalArgumentException("The bird with id \"%s\" does not exist".formatted(id));
+    public synchronized void deleteMusician(UUID id) throws IllegalArgumentException {
+        if (!musicians.removeIf(musician -> musician.getId().equals(id))) {
+            throw new IllegalArgumentException("The musician with id \"%s\" does not exist".formatted(id));
         }
     }
 
@@ -135,7 +139,9 @@ public class DataStore {
      * @return list (can be empty) of all users
      */
     public synchronized List<User> findAllUsers() {
-        return users.stream().map(cloningUtility::clone).collect(Collectors.toList());
+        return users.stream()
+                .map(cloningUtility::clone)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -145,7 +151,7 @@ public class DataStore {
      * @throws IllegalArgumentException if user with provided id already exists
      */
     public synchronized void createUser(User value) throws IllegalArgumentException {
-        if (users.stream().anyMatch(bird -> bird.getId().equals(value.getId()))) {
+        if (users.stream().anyMatch(musician -> musician.getId().equals(value.getId()))) {
             throw new IllegalArgumentException("The user id \"%s\" is not unique".formatted(value.getId()));
         }
         users.add(cloningUtility.clone(value));
@@ -158,35 +164,35 @@ public class DataStore {
      * @throws IllegalArgumentException if user with the same id does not exist
      */
     public synchronized void updateUser(User value) throws IllegalArgumentException {
-        if (users.removeIf(bird -> bird.getId().equals(value.getId()))) {
+        if (users.removeIf(musician -> musician.getId().equals(value.getId()))) {
             users.add(cloningUtility.clone(value));
         } else {
             throw new IllegalArgumentException("The user with id \"%s\" does not exist".formatted(value.getId()));
         }
     }
 
-    public synchronized void deleteUser(User entity) throws IllegalArgumentException {
-    if (!users.removeIf(user -> user.getId().equals(entity.getId()))) {
-        throw new IllegalArgumentException("The user with id \"%s\" does not exist".formatted(entity.getId()));
-    }
-}
-
     /**
-     * Clones existing bird and updates relationships for values in storage
+     * Clones existing musician and updates relationships for values in storage
      *
-     * @param value bird
+     * @param value musician
      * @return cloned value with updated relationships
-     * @throws IllegalArgumentException when {@link User} or {@link Action} with provided uuid does not exist
+     * @throws IllegalArgumentException when {@link User} or {@link Genre} with provided uuid does not exist
      */
-    private Bird cloneWithRelationships(Bird value) {
-        Bird entity = cloningUtility.clone(value);
+    private Musician cloneWithRelationships(Musician value) {
+        Musician entity = cloningUtility.clone(value);
 
         if (entity.getUser() != null) {
-            entity.setUser(users.stream().filter(user -> user.getId().equals(value.getUser().getId())).findFirst().orElseThrow(() -> new IllegalArgumentException("No user with id \"%s\".".formatted(value.getUser().getId()))));
+            entity.setUser(users.stream()
+                    .filter(user -> user.getId().equals(value.getUser().getId()))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("No user with id \"%s\".".formatted(value.getUser().getId()))));
         }
 
-        if (entity.getAction() != null) {
-            entity.setAction(actions.stream().filter(action -> action.getId().equals(value.getAction().getId())).findFirst().orElseThrow(() -> new IllegalArgumentException("No action with id \"%s\".".formatted(value.getAction().getId()))));
+        if (entity.getGenre() != null) {
+            entity.setGenre(genres.stream()
+                    .filter(genre -> genre.getId().equals(value.getGenre().getId()))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("No genre with id \"%s\".".formatted(value.getGenre().getId()))));
         }
 
         return entity;

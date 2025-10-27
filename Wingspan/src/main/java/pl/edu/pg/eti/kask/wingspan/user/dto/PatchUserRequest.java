@@ -1,20 +1,47 @@
 package pl.edu.pg.eti.kask.wingspan.user.dto;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
-@Data
+/**
+ * PATCH user request. Contains only fields which can be changed byt the user while updating its profile. User is
+ * defined in {@link pl.edu.pg.eti.kask.wingspan.user.entity.User}.
+ */
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Builder
+@ToString
+@EqualsAndHashCode
 public class PatchUserRequest {
-     /** User's login name */
-    private String login;
 
-    /** User's avatar image path */
-    private String avatarPath;
+    /**
+     * User's name.
+     */
+    private String name;
 
-    /** User's birthdate */
-    private LocalDate birthdate;
+    /**
+     * User's surname.
+     */
+    private String surname;
+
+    /**
+     * User's birthday.
+     */
+    private LocalDate birthDate;
+
+    /**
+     * User's email.
+     */
+    private String email;
+
 }

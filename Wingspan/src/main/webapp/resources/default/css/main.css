@@ -1,0 +1,280 @@
+/*
+ * Musician Hub Service --- Custom Stylesheet
+ * Author: Gemini
+ * Version: 1.0
+ */
+
+/* 1. Global Styles & Variables
+-------------------------------------------------- */
+:root {
+    --primary-color: #3b82f6; /* A nice blue */
+    --primary-hover-color: #2563eb;
+    --secondary-color: #6b7280; /* A neutral gray */
+    --secondary-hover-color: #4b5563;
+    --danger-color: #ef4444;
+    --danger-hover-color: #dc2626;
+    --light-gray-color: #f3f4f6;
+    --border-color: #d1d5db;
+    --text-color: #111827;
+    --body-bg: #ffffff;
+    --card-bg: #ffffff;
+    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --border-radius: 0.375rem;
+    --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: var(--font-family-sans-serif);
+    background-color: var(--light-gray-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+article {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+article > header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+article > header > h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* 2. Layout (Header, Nav, Footer)
+-------------------------------------------------- */
+header.mb-4.mt-4 h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+footer.text-center {
+    padding: 2rem 0;
+    margin-top: 2rem;
+    background: #111827;
+    color: #e0e6ed;
+    border-radius: var(--border-radius);
+}
+
+footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* 3. Buttons
+-------------------------------------------------- */
+.btn {
+    display: inline-block;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-color: var(--primary-color);
+    border: 1px solid transparent;
+    padding: 0.65rem 1.25rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+    background-color: var(--primary-hover-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover-color);
+}
+
+.btn-primary:disabled {
+    background-color: var(--primary-color);
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-hover-color);
+}
+
+/* Specific delete button on list */
+.table .btn {
+    background-color: var(--danger-color);
+    padding: 0.375rem 0.75rem;
+}
+
+.table .btn:hover {
+    background-color: var(--danger-hover-color);
+}
+
+/* 4. Forms
+-------------------------------------------------- */
+.form-outline {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--text-color);
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid var(--border-color);
+    appearance: none;
+    border-radius: var(--border-radius);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.form-control:focus {
+    color: var(--text-color);
+    background-color: #fff;
+    border-color: var(--primary-color);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25);
+}
+
+textarea.form-control {
+    min-height: calc(1.5em + (0.75rem * 2) + 2px);
+}
+
+/* Radio buttons for Genre selection */
+.form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.form-check-input {
+    width: 1.25em;
+    height: 1.25em;
+    margin-top: 0;
+    margin-right: 0.75rem;
+    vertical-align: top;
+    cursor: pointer;
+}
+
+/* File Input */
+.input-group {
+    display: flex;
+}
+.input-group .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.input-group .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+
+/* 5. Data Table (Musician List)
+-------------------------------------------------- */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-top: 1px solid var(--border-color);
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid var(--border-color);
+    text-align: left;
+    background-color: var(--light-gray-color);
+    font-weight: 600;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+
+.table .portrait {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.table a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.table a:hover {
+    color: var(--primary-hover-color);
+    text-decoration: underline;
+}
+
+/* Footer of the table */
+.table tfoot td {
+    border-top: 2px solid var(--border-color);
+    padding-top: 1.5rem;
+}
+
+
+/* 6. View & Confirm Pages
+-------------------------------------------------- */
+.row .col-6:first-child {
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+
+.row .col-3 h2, .row .col-3 img {
+    text-align: center;
+}
+
+.row .col-3 img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}

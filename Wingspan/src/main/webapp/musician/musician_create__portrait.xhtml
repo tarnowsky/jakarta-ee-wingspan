@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                xmlns:jsf="jakarta.faces"
+                template="/WEB-INF/template/main.xhtml">
+
+    <f:metadata>
+        <f:viewAction action="#{musicianCreate.init()}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <article>
+            <header><h2>Create musician - basic information</h2></header>
+            <h:form styleClass="container" onreset="onReset()" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-2 p-2 text-center">
+                        <h:commandButton styleClass="btn" value="Previous" immediate="true"
+                                         action="#{musicianCreate.goToTechniquesAction()}"/>
+                    </div>
+                    <div class="col-2 p-2 text-center">
+                        <h:commandButton styleClass="btn" value="Next"
+                                         action="#{musicianCreate.goToConfirmAction()}"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4 p-2">
+                        <div>
+                            <h:panelGroup rendered="#{musicianCreate.musician.portrait == null}">
+                                <h:outputLabel for="portrait" value="Portrait:" styleClass="form-label"/>
+                                <h:inputFile id="portrait" styleClass="form-control"
+                                             value="#{musicianCreate.musician.portrait}"/>
+                            </h:panelGroup>
+
+                            <h:panelGroup rendered="#{musicianCreate.musician.portrait != null}">
+                                <h:outputLabel for="portraitFile2" value="Portrait:" styleClass="form-label"/>
+                                <div class="input-group">
+                                    <h:inputText id="portraitFile2" styleClass="form-control" disabled="true"
+                                                 readonly="true"
+                                                 value="#{musicianCreate.musician.portrait.submittedFileName}"/>
+                                    <h:commandButton styleClass="btn  btn-outline-secondary" value="Reset"
+                                                     action="#{musicianCreate.resetPortraitAction()}"/>
+                                </div>
+                                <h:graphicImage alt="Musician portrait" styleClass="w-100"
+                                                value="#{musicianCreate.musicianPortraitUrl}"/>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-2 p-2 text-center">
+                        <h:button styleClass="btn btn-primary" value="Create" disabled="true"/>
+                    </div>
+                    <div class="col-2 p-2 text-center">
+                        <h:commandButton styleClass="btn btn-secondary" value="Cancel"
+                                         action="#{musicianCreate.cancelAction()}"/>
+                    </div>
+                </div>
+            </h:form>
+        </article>
+    </ui:define>
+
+</ui:composition>

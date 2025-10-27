@@ -160,31 +160,31 @@ GET http://localhost:9080/wingspan/api/birds
 
 ###
 
-# Get single character.
+# Get single musician.
 
 GET http://localhost:9080/wingspan/api/birds/525d3e7b-bb1f-4c13-bf17-926d1a12e4c0
 
 ###
 
-# Get single character. Not existing, created later.
+# Get single musician. Not existing, created later.
 
 GET http://localhost:9080/wingspan/api/birds/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
 
 ###
 
-# Get single character portrait.
+# Get single musician portrait.
 
 GET http://localhost:9080/wingspan/api/birds/525d3e7b-bb1f-4c13-bf17-926d1a12e4c0/portrait
 
 ###
 
-# Get single character portrait. Not existing, created later.
+# Get single musician portrait. Not existing, created later.
 
 GET http://localhost:9080/wingspan/api/birds/3c6f1eb1-8069-44ab-988f-d7fed2b65d87/portrait
 
 ###
 
-# Create new character.
+# Create new musician.
 
 PUT http://localhost:9080/wingspan/api/birds/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
 Content-Type: application/json
@@ -202,7 +202,7 @@ Content-Type: application/json
 
 ###
 
-# Create character portrait.
+# Create musician portrait.
 
 PUT http://localhost:9080/wingspan/api/birds/3c6f1eb1-8069-44ab-988f-d7fed2b65d87/portrait
 Content-Type: multipart/form-data; boundary=boundary
@@ -215,7 +215,7 @@ Content-Disposition: form-data; name="portrait"; filename="sigrid.png'
 
 ###
 
-# Create new character. Not existing action.
+# Create new musician. Not existing action.
 
 PUT http://localhost:9080/wingspan/api/birds/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
 Content-Type: application/json
@@ -232,7 +232,7 @@ Content-Type: application/json
 
 ###
 
-# Update character.
+# Update musician.
 
 PATCH http://localhost:9080/wingspan/api/birds/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
 Content-Type: application/json
@@ -245,7 +245,7 @@ Content-Type: application/json
 
 ###
 
-# Delete character.
+# Delete musician.
 
 DELETE http://localhost:9080/wingspan/api/birds/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
 

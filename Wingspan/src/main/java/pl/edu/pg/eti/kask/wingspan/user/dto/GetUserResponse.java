@@ -1,30 +1,58 @@
 package pl.edu.pg.eti.kask.wingspan.user.dto;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 /**
- * Data Transfer Object for returning user information via GET requests.
- *
- * <p>This DTO contains the user fields that are safe to expose in API responses.
- * Sensitive information like passwords are excluded from this response object.</p>
+ * GET user response. Contains only fields which can be displayed on frontend. User is defined in
+ * {@link pl.edu.pg.eti.kask.wingspan.user.entity.User}.
  */
-@Data
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Builder
+@ToString
+@EqualsAndHashCode
 public class GetUserResponse {
-    /** Unique user identifier */
+
+    /**
+     * Unique id identifying musician.
+     */
     private UUID id;
 
-    /** User's login name */
+    /**
+     * User's username (login)
+     */
     private String login;
 
-    /** User's birthdate */
-    private LocalDate birthdate;
+    /**
+     * User's name.
+     */
+    private String name;
 
-    /** Path to user's avatar image */
-    private String avatarPath;
+    /**
+     * User's surname.
+     */
+    private String surname;
+
+    /**
+     * User's birthdate.
+     */
+    private LocalDate birthDate;
+
+    /**
+     * User's email.
+     */
+    private String email;
+
 }

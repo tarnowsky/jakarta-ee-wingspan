@@ -1,18 +1,18 @@
 package pl.edu.pg.eti.kask.wingspan.user.entity;
 
 /**
- * Constants defining user roles in the system.
- * Contains predefined role names used for authorization and access control.
+ * Definition of roles which can be assigned to application users.
  */
 public class UserRoles {
 
     /**
-     * Administrator role with full system privileges.
+     * System administrator.
      */
     public static final String ADMIN = "admin";
 
     /**
-     * Standard user role with basic system access.
+     * System standard user.
      */
     public static final String USER = "user";
+
 }

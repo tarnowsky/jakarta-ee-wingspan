@@ -5,12 +5,12 @@ import lombok.Getter;
 /**
  * Exception thrown when there is error with HTTP request.
  */
-@Getter
 public class HttpRequestException extends RuntimeException {
 
     /**
      * HTTP response code.
      */
+    @Getter
     private final int responseCode;
 
     /**
@@ -61,4 +61,3 @@ public class HttpRequestException extends RuntimeException {
     }
 
 }
-

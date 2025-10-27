@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                template="/WEB-INF/template/main.xhtml">
+
+    <f:metadata>
+        <f:viewAction action="#{musicianCreate.init()}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <article>
+            <header><h2>Create musician - basic information</h2></header>
+            <h:form styleClass="container" onreset="onReset()" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-2 p-2 text-center">
+                        <h:commandButton styleClass="btn" value="Previous" immediate="true"
+                                         action="#{musicianCreate.goToPortraitAction()}"/>
+                    </div>
+                    <div class="col-2 p-2 text-center">
+                        <h:button styleClass="btn" value="Next" disabled="true"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                Level &amp; Genre
+                            </div>
+                            <div class="col-6">
+                                <h:outputText value="#{musicianCreate.musician.genre.name}"/>
+                                level
+                                <h:outputText value="#{musicianCreate.musician.level}"/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                Experience
+                            </div>
+                            <div class="col-6">
+                                <h:outputText value="#{musicianCreate.musician.experience}"/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                Life
+                            </div>
+                            <div class="col-6">
+                                <h:outputText value="#{musicianCreate.musician.condition}"/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                Volume
+                            </div>
+                            <div class="col-6">
+                                <h:outputText value="#{musicianCreate.musician.volume}"/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                Resonance
+                            </div>
+                            <div class="col-6">
+                                <h:outputText value="#{musicianCreate.musician.resonance}"/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                ToneQuality
+                            </div>
+                            <div class="col-6">
+                                <h:outputText value="#{musicianCreate.musician.toneQuality}"/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                Age
+                            </div>
+                            <div class="col-6">
+                                <h:outputText value="#{musicianCreate.musician.age}"/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                Biography
+                            </div>
+                            <div class="col-6">
+                                <h:outputText value="#{musicianCreate.musician.biography}"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <h:graphicImage alt="Musician portrait"
+                                        rendered="#{musicianCreate.musician.portrait != null}"
+                                        value="#{musicianCreate.musicianPortraitUrl}"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-2 p-2 text-center">
+                        <h:commandButton styleClass="btn btn-primary" value="Create"
+                                         action="#{musicianCreate.saveAction()}"/>
+                    </div>
+                    <div class="col-2 p-2 text-center">
+                        <h:commandButton styleClass="btn btn-secondary" value="Cancel"
+                                         action="#{musicianCreate.cancelAction()}"/>
+                    </div>
+                </div>
+            </h:form>
+        </article>
+    </ui:define>
+
+</ui:composition>

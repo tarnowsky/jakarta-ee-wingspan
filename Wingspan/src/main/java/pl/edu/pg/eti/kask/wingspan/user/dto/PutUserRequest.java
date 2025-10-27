@@ -1,28 +1,57 @@
 package pl.edu.pg.eti.kask.wingspan.user.dto;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
 /**
- * Data Transfer Object for updating user information via PUT requests.
- *
- * <p>This DTO contains all the fields that can be updated for a user entity.
+ * PUT user request. Contains only fields that can be set during user creation. User is defined in
+ * {@link pl.edu.pg.eti.kask.wingspan.user.entity.User}.
  */
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@ToString
+@EqualsAndHashCode
 public class PutUserRequest {
-    /** User's login name */
+
+    /**
+     * User's login.
+     */
     private String login;
 
-    /** User's password */
+    /**
+     * User's name.
+     */
+    private String name;
+
+    /**
+     * User's surname.
+     */
+    private String surname;
+
+    /**
+     * User's birthdate.
+     */
+    private LocalDate birthDate;
+
+    /**
+     * User's password.
+     */
     private String password;
 
-    /** User's avatar image path */
-    private String avatarPath;
+    /**
+     * User's email.
+     */
+    private String email;
 
-    /** User's birthdate */
-    private LocalDate birthdate;
 }

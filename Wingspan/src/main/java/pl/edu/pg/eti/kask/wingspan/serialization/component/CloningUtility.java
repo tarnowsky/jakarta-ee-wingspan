@@ -4,7 +4,12 @@ import jakarta.enterprise.context.Dependent;
 import lombok.SneakyThrows;
 import lombok.extern.java.Log;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  * Utility class for cloning objects. Storing objects in memory instead of database can be dangerous because of
@@ -16,20 +21,6 @@ import java.io.*;
 @Log
 @Dependent
 public class CloningUtility {
-
-    /**
-     * @param object object to be cloned
-     *               * @param <T>    type of the object
-     * @return close {@link ByteArrayOutputStream} with serialized object
-     * @throws IOException on IO error
-     */
-    private <T extends Serializable> ByteArrayOutputStream writeObject(T object) throws IOException {
-        try (ByteArrayOutputStream os = new ByteArrayOutputStream();
-             ObjectOutputStream oos = new ObjectOutputStream(os)) {
-            oos.writeObject(object);
-            return os;
-        }
-    }
 
     /**
      * Created deep copy of provided object using serialization.
@@ -45,5 +36,21 @@ public class CloningUtility {
              ObjectInputStream ois = new ObjectInputStream(is)) {
             return (T) ois.readObject();
         }
+
     }
+
+    /**
+     * @param object object to be cloned
+     *               * @param <T>    type of the object
+     * @return close {@link ByteArrayOutputStream} with serialized object
+     * @throws IOException on IO error
+     */
+    private <T extends Serializable> ByteArrayOutputStream writeObject(T object) throws IOException {
+        try (ByteArrayOutputStream os = new ByteArrayOutputStream();
+             ObjectOutputStream oos = new ObjectOutputStream(os)) {
+            oos.writeObject(object);
+            return os;
+        }
+    }
+
 }

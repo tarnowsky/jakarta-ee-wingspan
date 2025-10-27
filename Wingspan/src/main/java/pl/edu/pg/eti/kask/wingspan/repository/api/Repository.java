@@ -4,46 +4,49 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Generic repository interface for CRUD operations on entities.
+ * Repository interface for accessing data from underlying data stores. The interface does not define how the data
+ * is retrieved. The interface defines only basic methods which are not aware of entity object structure. Additional
+ * methods (like find by or order) should be defined as methods in implementing class.
  *
- * @param <E> the entity type
- * @param <K> the key/identifier type
+ * @param <E> type of the entity
+ * @param <K> type of the primary key
  */
 public interface Repository<E, K> {
 
     /**
-     * Finds an entity by its identifier.
+     * Find entity object using its primary key.
      *
-     * @param id the unique identifier of the entity
-     * @return an Optional containing the entity if found, empty otherwise
+     * @param id object primary key
+     * @return container (can be empty) with entity object
      */
     Optional<E> find(K id);
 
     /**
-     * Retrieves all entities from the repository.
+     * Find all entities.
      *
-     * @return a list of all entities
+     * @return list (can be empty) with all objects
      */
     List<E> findAll();
 
     /**
-     * Creates a new entity in the repository.
+     * Save new object in the data store.
      *
-     * @param entity the entity to create
+     * @param entity object to be saved
      */
     void create(E entity);
 
     /**
-     * Deletes an entity from the repository.
+     * Delete object from the data store.
      *
-     * @param entity the entity to delete
+     * @param entity object to be deleted
      */
     void delete(E entity);
 
     /**
-     * Updates an existing entity in the repository.
+     * Update existing object in the data store.
      *
-     * @param entity the entity to update
+     * @param entity object to be updated
      */
     void update(E entity);
+
 }

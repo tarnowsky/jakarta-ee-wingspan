@@ -9,37 +9,35 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import pl.edu.pg.eti.kask.wingspan.bird.controller.api.ActionController;
-import pl.edu.pg.eti.kask.wingspan.bird.controller.api.BirdController;
-import pl.edu.pg.eti.kask.wingspan.bird.dto.PatchBirdRequest;
-import pl.edu.pg.eti.kask.wingspan.bird.dto.PutBirdRequest;
-import pl.edu.pg.eti.kask.wingspan.user.controller.api.UserController;
-import pl.edu.pg.eti.kask.wingspan.user.dto.PatchUserRequest;
-import pl.edu.pg.eti.kask.wingspan.user.dto.PutUserRequest;
+import pl.edu.pg.eti.kask.wingspan.musician.controller.api.MusicianController;
+import pl.edu.pg.eti.kask.wingspan.musician.controller.api.GenreController;
+import pl.edu.pg.eti.kask.wingspan.musician.dto.PatchMusicianRequest;
+import pl.edu.pg.eti.kask.wingspan.musician.dto.PutMusicianRequest;
 
 import java.io.IOException;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@WebServlet(urlPatterns = {ApiServlet.Paths.API + "/*"})
+/**
+ * Central API servlet for fetching all request from the client and preparing responses. Servlet API does not allow
+ * named path parameters so wildcard is used.
+ */
+@WebServlet(urlPatterns = {
+        ApiServlet.Paths.API + "/*"
+})
 @MultipartConfig(maxFileSize = 200 * 1024)
 public class ApiServlet extends HttpServlet {
 
     /**
-     * Controller for managing collections birds' representations.
+     * Controller for managing collections musicians' representations.
      */
-    private final BirdController birdController;
+    private final MusicianController musicianController;
 
     /**
-     * Controller for managing collections actions' representations.
+     * Controller for managing collections genres' representations.
      */
-    private final ActionController actionController;
-
-    /**
-     * Controller for managing collections users' representations.
-     */
-    private final UserController userController;
+    private final GenreController genreController;
 
     /**
      * Definition of paths supported by this servlet. Separate inner class provides composition for static fields.
@@ -64,47 +62,48 @@ public class ApiServlet extends HttpServlet {
         private static final Pattern UUID = Pattern.compile("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}");
 
         /**
-         * All birds.
+         * All musicians.
          */
-        public static final Pattern BIRDS = Pattern.compile("/birds/?");
+        public static final Pattern MUSICIANS = Pattern.compile("/musicians/?");
 
         /**
-         * Single bird.
+         * Single musician.
          */
-        public static final Pattern BIRD = Pattern.compile("/birds/(%s)".formatted(UUID.pattern()));
+        public static final Pattern MUSICIAN = Pattern.compile("/musicians/(%s)".formatted(UUID.pattern()));
 
         /**
-         * Single bird's illustration.
+         * Single musician's portrait.
          */
-        public static final Pattern BIRD_ILLUSTRATION = Pattern.compile("/birds/(%s)/illustration".formatted(UUID.pattern()));
+        public static final Pattern MUSICIAN_PORTRAIT = Pattern.compile("/musicians/(%s)/portrait".formatted(UUID.pattern()));
 
         /**
-         * All actions.
+         * All genres.
          */
-        public static final Pattern ACTIONS = Pattern.compile("/actions/?");
+        public static final Pattern GENRE = Pattern.compile("/genres/?");
 
         /**
-         * All birds of single action.
+         * All musicians of single genre.
          */
-        public static final Pattern ACTION_BIRDS = Pattern.compile("/actions/(%s)/birds/?".formatted(UUID.pattern()));
+        public static final Pattern PROFESSION_MUSICIANS = Pattern.compile("/genres/(%s)/musicians/?".formatted(UUID.pattern()));
 
         /**
-         * All birds of single user.
+         * All musicians of single user.
          */
-        public static final Pattern USER_BIRDS = Pattern.compile("/users/(%s)/birds/?".formatted(UUID.pattern()));
+        public static final Pattern USER_MUSICIANS = Pattern.compile("/users/(%s)/musicians/?".formatted(UUID.pattern()));
 
-        public static final Pattern USERS = Pattern.compile("/users/?");
-        public static final Pattern USER = Pattern.compile("/users/(%s)".formatted(UUID.pattern()));
-        public static final Pattern USER_AVATAR = Pattern.compile("/users/(%s)/avatar".formatted(UUID.pattern()));
     }
 
+    /**
+     * JSON-B mapping object. According to open liberty documentation creating this is expensive. The JSON-B is only one
+     * of many solutions. JSON strings can be built by hand {@link StringBuilder} or with JSON-P API. Both JSON-B and
+     * JSON-P are part of Jakarta EE whereas JSON-B is newer standard.
+     */
     private final Jsonb jsonb = JsonbBuilder.create();
 
     @Inject
-    public ApiServlet(BirdController birdController, ActionController actionController, UserController userController) {
-        this.birdController = birdController;
-        this.actionController = actionController;
-        this.userController = userController;
+    public ApiServlet(MusicianController musicianController, GenreController genreController) {
+        this.musicianController = musicianController;
+        this.genreController = genreController;
     }
 
     @Override
@@ -122,55 +121,35 @@ public class ApiServlet extends HttpServlet {
         String path = parseRequestPath(request);
         String servletPath = request.getServletPath();
         if (Paths.API.equals(servletPath)) {
-            if (path.matches(Patterns.BIRDS.pattern())) {
+            if (path.matches(Patterns.MUSICIANS.pattern())) {
                 response.setContentType("application/json");
-                response.getWriter().write(jsonb.toJson(birdController.getBirds()));
+                response.getWriter().write(jsonb.toJson(musicianController.getMusicians()));
                 return;
-            } else if (path.matches(Patterns.BIRD.pattern())) {
+            } else if (path.matches(Patterns.MUSICIAN.pattern())) {
                 response.setContentType("application/json");
-                UUID uuid = extractUuid(Patterns.BIRD, path);
-                response.getWriter().write(jsonb.toJson(birdController.getBird(uuid)));
+                UUID uuid = extractUuid(Patterns.MUSICIAN, path);
+                response.getWriter().write(jsonb.toJson(musicianController.getMusician(uuid)));
                 return;
-            } else if (path.matches(Patterns.ACTIONS.pattern())) {
+            } else if (path.matches(Patterns.GENRE.pattern())) {
                 response.setContentType("application/json");
-                response.getWriter().write(jsonb.toJson(actionController.getActions()));
+                response.getWriter().write(jsonb.toJson(genreController.getGenres()));
                 return;
-            } else if (path.matches(Patterns.ACTION_BIRDS.pattern())) {
+            } else if (path.matches(Patterns.PROFESSION_MUSICIANS.pattern())) {
                 response.setContentType("application/json");
-                UUID uuid = extractUuid(Patterns.ACTION_BIRDS, path);
-                response.getWriter().write(jsonb.toJson(birdController.getActionBirds(uuid)));
+                UUID uuid = extractUuid(Patterns.PROFESSION_MUSICIANS, path);
+                response.getWriter().write(jsonb.toJson(musicianController.getGenreMusicians(uuid)));
                 return;
-            } else if (path.matches(Patterns.USER_BIRDS.pattern())) {
+            } else if (path.matches(Patterns.USER_MUSICIANS.pattern())) {
                 response.setContentType("application/json");
-                UUID uuid = extractUuid(Patterns.USER_BIRDS, path);
-                response.getWriter().write(jsonb.toJson(birdController.getUserBirds(uuid)));
+                UUID uuid = extractUuid(Patterns.USER_MUSICIANS, path);
+                response.getWriter().write(jsonb.toJson(musicianController.getUserMusicians(uuid)));
                 return;
-            } else if (path.matches(Patterns.BIRD_ILLUSTRATION.pattern())) {
+            } else if (path.matches(Patterns.MUSICIAN_PORTRAIT.pattern())) {
                 response.setContentType("image/png");//could be dynamic but atm we support only one format
-                UUID uuid = extractUuid(Patterns.BIRD_ILLUSTRATION, path);
-                byte[] illustration = birdController.getBirdIllustration(uuid);
-                response.setContentLength(illustration.length);
-                response.getOutputStream().write(illustration);
-                return;
-            } else if (path.matches(Patterns.USERS.pattern())) {
-                response.setContentType("application/json");
-                response.getWriter().write(jsonb.toJson(userController.getUsers()));
-                return;
-            } else if (path.matches(Patterns.USER.pattern())) {
-                response.setContentType("application/json");
-                UUID uuid = extractUuid(Patterns.USER, path);
-                response.getWriter().write(jsonb.toJson(userController.getUser(uuid)));
-                return;
-            } else if (path.matches(Patterns.USER_AVATAR.pattern())) {
-                response.setContentType("image/png");
-                UUID uuid = extractUuid(Patterns.USER_AVATAR, path);
-                try {
-                    byte[] avatar = userController.getUserAvatar(uuid);
-                    response.setContentLength(avatar.length);
-                    response.getOutputStream().write(avatar);
-                } catch (IllegalStateException e) {
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Avatar not found");
-                }
+                UUID uuid = extractUuid(Patterns.MUSICIAN_PORTRAIT, path);
+                byte[] portrait = musicianController.getMusicianPortrait(uuid);
+                response.setContentLength(portrait.length);
+                response.getOutputStream().write(portrait);
                 return;
             }
         }
@@ -181,27 +160,14 @@ public class ApiServlet extends HttpServlet {
         String path = parseRequestPath(request);
         String servletPath = request.getServletPath();
         if (Paths.API.equals(servletPath)) {
-            if (path.matches(Patterns.BIRD.pattern())) {
-                UUID uuid = extractUuid(Patterns.BIRD, path);
-                birdController.putBird(uuid, jsonb.fromJson(request.getReader(), PutBirdRequest.class));
-                response.addHeader("Location", createUrl(request, Paths.API, "birds", uuid.toString()));
+            if (path.matches(Patterns.MUSICIAN.pattern())) {
+                UUID uuid = extractUuid(Patterns.MUSICIAN, path);
+                musicianController.putMusician(uuid, jsonb.fromJson(request.getReader(), PutMusicianRequest.class));
+                response.addHeader("Location", createUrl(request, Paths.API, "musicians", uuid.toString()));
                 return;
-            } else if (path.matches(Patterns.BIRD_ILLUSTRATION.pattern())) {
-                UUID uuid = extractUuid(Patterns.BIRD_ILLUSTRATION, path);
-                birdController.putBirdIllustration(uuid, request.getPart("illustration").getInputStream());
-                return;
-            } else if (path.matches(Patterns.USER.pattern())) {
-                UUID uuid = extractUuid(Patterns.USER, path);
-                try {
-                    userController.putUser(uuid, jsonb.fromJson(request.getReader(), PutUserRequest.class));
-                    response.addHeader("Location", createUrl(request, Paths.API, "users", uuid.toString()));
-                } catch (IllegalArgumentException e) {
-                    response.sendError(HttpServletResponse.SC_CONFLICT, e.getMessage());
-                }
-                return;
-            } else if (path.matches(Patterns.USER_AVATAR.pattern())) {
-                UUID uuid = extractUuid(Patterns.USER_AVATAR, path);
-                userController.putUserAvatar(uuid, request.getPart("avatar").getInputStream());
+            } else if (path.matches(Patterns.MUSICIAN_PORTRAIT.pattern())) {
+                UUID uuid = extractUuid(Patterns.MUSICIAN_PORTRAIT, path);
+                musicianController.putMusicianPortrait(uuid, request.getPart("portrait").getInputStream());
                 return;
             }
         }
@@ -214,17 +180,9 @@ public class ApiServlet extends HttpServlet {
         String path = parseRequestPath(request);
         String servletPath = request.getServletPath();
         if (Paths.API.equals(servletPath)) {
-            if (path.matches(Patterns.BIRD.pattern())) {
-                UUID uuid = extractUuid(Patterns.BIRD, path);
-                birdController.deleteBird(uuid);
-                return;
-            } else if (path.matches(Patterns.USER.pattern())) {
-                UUID uuid = extractUuid(Patterns.USER, path);
-                userController.deleteUser(uuid);
-                return;
-            } else if (path.matches(Patterns.USER_AVATAR.pattern())) {
-                UUID uuid = extractUuid(Patterns.USER_AVATAR, path);
-                userController.deleteUserAvatar(uuid);
+            if (path.matches(Patterns.MUSICIAN.pattern())) {
+                UUID uuid = extractUuid(Patterns.MUSICIAN, path);
+                musicianController.deleteMusician(uuid);
                 return;
             }
         }
@@ -244,13 +202,9 @@ public class ApiServlet extends HttpServlet {
         String path = parseRequestPath(request);
         String servletPath = request.getServletPath();
         if (Paths.API.equals(servletPath)) {
-            if (path.matches(Patterns.BIRD.pattern())) {
-                UUID uuid = extractUuid(Patterns.BIRD, path);
-                birdController.patchBird(uuid, jsonb.fromJson(request.getReader(), PatchBirdRequest.class));
-                return;
-            } else if (path.matches(Patterns.USER.pattern())) {
-                UUID uuid = extractUuid(Patterns.USER, path);
-                userController.patchUser(uuid, jsonb.fromJson(request.getReader(), PatchUserRequest.class));
+            if (path.matches(Patterns.MUSICIAN.pattern())) {
+                UUID uuid = extractUuid(Patterns.MUSICIAN, path);
+                musicianController.patchMusician(uuid, jsonb.fromJson(request.getReader(), PatchMusicianRequest.class));
                 return;
             }
         }
@@ -286,7 +240,7 @@ public class ApiServlet extends HttpServlet {
 
     /**
      * Creates URL using host, port and context root from servlet request and any number of path elements. If any of
-     * path elements starts or ends with '/' bird, that bird is removed.
+     * path elements starts or ends with '/' musician, that musician is removed.
      *
      * @param request servlet request
      * @param paths   any (can be none) number of path elements
@@ -294,12 +248,17 @@ public class ApiServlet extends HttpServlet {
      */
     public static String createUrl(HttpServletRequest request, String... paths) {
         StringBuilder builder = new StringBuilder();
-        builder.append(request.getScheme()).append("://").append(request.getServerName()).append(":").append(request.getServerPort()).append(request.getContextPath());
+        builder.append(request.getScheme())
+                .append("://")
+                .append(request.getServerName())
+                .append(":")
+                .append(request.getServerPort())
+                .append(request.getContextPath());
         for (String path : paths) {
-            builder.append("/").append(path, path.startsWith("/") ? 1 : 0, path.endsWith("/") ? path.length() - 1 : path.length());
+            builder.append("/")
+                    .append(path, path.startsWith("/") ? 1 : 0, path.endsWith("/") ? path.length() - 1 : path.length());
         }
         return builder.toString();
     }
 
 }
-

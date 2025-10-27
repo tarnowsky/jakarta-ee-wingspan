@@ -1,40 +1,58 @@
 package pl.edu.pg.eti.kask.wingspan.user.dto;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.Singular;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.UUID;
 
 /**
- * Data Transfer Object for returning a list of users via GET requests.
- *
- * <p>This DTO contains a simplified representation of users with only basic information
- * suitable for listing operations. Contains a nested User class for individual user data.</p>
+ * GET users response. Contains names and ids of users in the system. User's name is the same as login.
  */
-@Data
+@Getter
+@Setter
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@ToString
+@EqualsAndHashCode
 public class GetUsersResponse {
 
     /**
-     * Simplified user representation for list responses.
-     *
-     * <p>Contains only essential user information needed for user listings.</p>
+     * Represents single user in list.
      */
-    @Data
+    @Getter
+    @Setter
     @Builder
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @NoArgsConstructor
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @ToString
+    @EqualsAndHashCode
     public static class User {
-        /** Unique user identifier */
+
+        /**
+         * Unique id identifying user.
+         */
         private UUID id;
 
-        /** User's login name */
+        /**
+         * Login of the user.
+         */
         private String login;
+
     }
 
-    /** List of users in the response */
+    /**
+     * List of all users.
+     */
     @Singular
     private List<User> users;
+
 }

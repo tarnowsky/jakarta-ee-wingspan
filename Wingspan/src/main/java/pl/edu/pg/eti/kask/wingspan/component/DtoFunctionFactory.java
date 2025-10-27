@@ -1,19 +1,19 @@
 package pl.edu.pg.eti.kask.wingspan.component;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import pl.edu.pg.eti.kask.wingspan.bird.dto.GetBirdResponse;
-import pl.edu.pg.eti.kask.wingspan.bird.dto.GetBirdsResponse;
-import pl.edu.pg.eti.kask.wingspan.bird.dto.GetActionResponse;
-import pl.edu.pg.eti.kask.wingspan.bird.dto.GetActionsResponse;
-import pl.edu.pg.eti.kask.wingspan.bird.dto.PutBirdRequest;
-import pl.edu.pg.eti.kask.wingspan.bird.dto.function.BirdToResponseFunction;
-import pl.edu.pg.eti.kask.wingspan.bird.dto.function.BirdsToResponseFunction;
-import pl.edu.pg.eti.kask.wingspan.bird.dto.function.ActionToResponseFunction;
-import pl.edu.pg.eti.kask.wingspan.bird.dto.function.ActionsToResponseFunction;
-import pl.edu.pg.eti.kask.wingspan.bird.dto.function.RequestToBirdFunction;
-import pl.edu.pg.eti.kask.wingspan.bird.dto.function.UpdateBirdWithRequestFunction;
-import pl.edu.pg.eti.kask.wingspan.bird.entity.Bird;
-import pl.edu.pg.eti.kask.wingspan.bird.entity.Action;
+import pl.edu.pg.eti.kask.wingspan.musician.dto.GetMusicianResponse;
+import pl.edu.pg.eti.kask.wingspan.musician.dto.GetMusiciansResponse;
+import pl.edu.pg.eti.kask.wingspan.musician.dto.GetGenreResponse;
+import pl.edu.pg.eti.kask.wingspan.musician.dto.GetGenresResponse;
+import pl.edu.pg.eti.kask.wingspan.musician.dto.PutMusicianRequest;
+import pl.edu.pg.eti.kask.wingspan.musician.dto.function.MusicianToResponseFunction;
+import pl.edu.pg.eti.kask.wingspan.musician.dto.function.MusiciansToResponseFunction;
+import pl.edu.pg.eti.kask.wingspan.musician.dto.function.GenreToResponseFunction;
+import pl.edu.pg.eti.kask.wingspan.musician.dto.function.GenresToResponseFunction;
+import pl.edu.pg.eti.kask.wingspan.musician.dto.function.RequestToMusicianFunction;
+import pl.edu.pg.eti.kask.wingspan.musician.dto.function.UpdateMusicianWithRequestFunction;
+import pl.edu.pg.eti.kask.wingspan.musician.entity.Musician;
+import pl.edu.pg.eti.kask.wingspan.musician.entity.Genre;
 import pl.edu.pg.eti.kask.wingspan.user.dto.GetUserResponse;
 import pl.edu.pg.eti.kask.wingspan.user.dto.GetUsersResponse;
 import pl.edu.pg.eti.kask.wingspan.user.dto.PutUserRequest;
@@ -34,57 +34,57 @@ import java.util.function.Function;
 public class DtoFunctionFactory {
 
     /**
-     * Returns a function to convert a single {@link Bird} to {@link GetBirdResponse}.
+     * Returns a function to convert a single {@link Musician} to {@link GetMusicianResponse}.
      *
-     * @return BirdToResponseFunction instance
+     * @return MusicianToResponseFunction instance
      */
-    public BirdToResponseFunction birdToResponse() {
-        return new BirdToResponseFunction();
+    public MusicianToResponseFunction musicianToResponse() {
+        return new MusicianToResponseFunction();
     }
 
     /**
-     * Returns a function to convert a list of {@link Bird} to {@link GetBirdsResponse}.
+     * Returns a function to convert a list of {@link Musician} to {@link GetMusiciansResponse}.
      *
-     * @return BirdsToResponseFunction instance
+     * @return MusiciansToResponseFunction instance
      */
-    public BirdsToResponseFunction birdsToResponse() {
-        return new BirdsToResponseFunction();
+    public MusiciansToResponseFunction musiciansToResponse() {
+        return new MusiciansToResponseFunction();
     }
 
     /**
-     * Returns a function to convert a single {@link Action} to {@link GetActionResponse}.
+     * Returns a function to convert a single {@link Genre} to {@link GetGenreResponse}.
      *
-     * @return ActionToResponseFunction instance
+     * @return GenreToResponseFunction instance
      */
-    public ActionToResponseFunction actionToResponse() {
-        return new ActionToResponseFunction();
+    public GenreToResponseFunction genreToResponse() {
+        return new GenreToResponseFunction();
     }
 
     /**
-     * Returns a function to convert a list of {@link Action} to {@link GetActionsResponse}.
+     * Returns a function to convert a list of {@link Genre} to {@link GetGenresResponse}.
      *
-     * @return ActionsToResponseFunction instance
+     * @return GenresToResponseFunction instance
      */
-    public ActionsToResponseFunction actionsToResponse() {
-        return new ActionsToResponseFunction();
+    public GenresToResponseFunction genresToResponse() {
+        return new GenresToResponseFunction();
     }
 
     /**
-     * Returns a function to convert a {@link PutBirdRequest} to a {@link Bird}.
+     * Returns a function to convert a {@link PutMusicianRequest} to a {@link Musician}.
      *
-     * @return RequestToBirdFunction instance
+     * @return RequestToMusicianFunction instance
      */
-    public RequestToBirdFunction requestToBird() {
-        return new RequestToBirdFunction();
+    public RequestToMusicianFunction requestToMusician() {
+        return new RequestToMusicianFunction();
     }
 
     /**
-     * Returns a function to update a {@link Bird}.
+     * Returns a function to update a {@link Musician}.
      *
-     * @return UpdateBirdFunction instance
+     * @return UpdateMusicianFunction instance
      */
-    public UpdateBirdWithRequestFunction updateBird() {
-        return new UpdateBirdWithRequestFunction();
+    public UpdateMusicianWithRequestFunction updateMusician() {
+        return new UpdateMusicianWithRequestFunction();
     }
 
     /**

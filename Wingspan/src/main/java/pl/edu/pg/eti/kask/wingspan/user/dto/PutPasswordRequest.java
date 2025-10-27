@@ -1,18 +1,29 @@
 package pl.edu.pg.eti.kask.wingspan.user.dto;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
- * Data Transfer Object for updating a user's password via PUT requests.
- *
- * <p>This DTO is specifically designed for password change operations,
- * containing only the new password field for security purposes.</p>
+ * PUT password request. Usually there are separate forms for updating user profile (name, etc.) and password.
  */
-@Data
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Builder
+@ToString
+@EqualsAndHashCode
 public class PutPasswordRequest {
-    /** New password to set for the user */
+
+    /**
+     * New value for user's password.
+     */
     private String password;
+
 }

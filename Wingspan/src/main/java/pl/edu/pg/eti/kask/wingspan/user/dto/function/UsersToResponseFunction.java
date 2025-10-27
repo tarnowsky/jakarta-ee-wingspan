@@ -6,6 +6,9 @@ import pl.edu.pg.eti.kask.wingspan.user.entity.User;
 import java.util.List;
 import java.util.function.Function;
 
+/**
+ * Converts {@link List<User>} to {@link GetUsersResponse}.
+ */
 public class UsersToResponseFunction implements Function<List<User>, GetUsersResponse> {
 
     @Override
@@ -19,4 +22,5 @@ public class UsersToResponseFunction implements Function<List<User>, GetUsersRes
                         .toList())
                 .build();
     }
+
 }

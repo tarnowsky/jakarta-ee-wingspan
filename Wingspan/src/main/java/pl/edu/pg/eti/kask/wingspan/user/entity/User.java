@@ -1,6 +1,12 @@
 package pl.edu.pg.eti.kask.wingspan.user.entity;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
@@ -12,39 +18,53 @@ import java.util.UUID;
  * Entity for system user. Represents information about particular user as well as credentials for authorization and
  * authentication needs.
  */
-@Data
+@Getter
+@Setter
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@SuperBuilder
+@ToString
+@EqualsAndHashCode
 public class User implements Serializable {
 
     /**
-     * Unique identifier of the user.
+     * Unique id (primary key).
      */
     private UUID id;
 
-    private List<String> userRoles;
-
     /**
-     * User's avatar.
-     */
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private String avatarPath;
-
-    /**
-     * User's login name for authentication.
+     * User's login.
      */
     private String login;
 
     /**
-     * User's password for authentication. Excluded from toString() for security reasons.
+     * User's given name.
+     */
+    private String name;
+
+    /**
+     * User's surname.
+     */
+    private String surname;
+
+    /**
+     * User's birthdate.
+     */
+    private LocalDate birthDate;
+
+    /**
+     * User's password.
      */
     @ToString.Exclude
     private String password;
 
     /**
-     * User's date of birth.
+     * User's contact email.
      */
-    private LocalDate birthdate;
+    private String email;
+
+    /**
+     * User's security roles.
+     */
+    private List<String> roles;
 }
