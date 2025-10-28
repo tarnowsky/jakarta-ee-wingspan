@@ -6,5 +6,6 @@ import jakarta.faces.annotation.FacesConfig;
 
 @FacesConfig
 @ApplicationScoped
-public class ViewConfig {
+public class
+ViewConfig {
 }

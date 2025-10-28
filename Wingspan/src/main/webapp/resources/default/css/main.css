@@ -31,6 +31,11 @@ body {
 }
 
 .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+    height: 100vh;
     max-width: 1140px;
     margin: 0 auto;
     padding: 0 1rem;
@@ -57,6 +62,7 @@ article > header > h2 {
 
 /* 2. Layout (Header, Nav, Footer)
 -------------------------------------------------- */
+
 header.mb-4.mt-4 h1 {
     font-size: 2.5rem;
     font-weight: 700;
@@ -67,7 +73,8 @@ footer.text-center {
     margin-top: 2rem;
     background: #111827;
     color: #e0e6ed;
-    border-radius: var(--border-radius);
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
 }
 
 footer a {

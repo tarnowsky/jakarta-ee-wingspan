@@ -5,32 +5,33 @@
       xmlns:h="jakarta.faces.html"
       xmlns:ui="jakarta.faces.facelets"
       xmlns:f="jakarta.faces.core">
-    <f:view>
-        <h:head>
-            <meta charset="UTF-8"/>
-            <meta name="description" content="Musician Hub Application"/>
-            <meta name="keywords" content="CRUD, JEE, Musician"/>
-            <meta name="author" content="Michał Tarnowski, Gemini"/>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-            <title>Musician Hub</title>
+<f:view>
+    <h:head>
+        <meta charset="UTF-8"/>
+        <meta name="description" content="Musician Hub Application"/>
+        <meta name="keywords" content="CRUD, JEE, Musician"/>
+        <meta name="author" content="Michał Tarnowski, Gemini"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Musician Hub</title>
 
-            <!-- Link to the new, unified stylesheet -->
-            <meta charset="UTF-8"/>
-            <meta name="description" content="Musician Simulator Application"/>
-            <meta name="keywords" content="RPG"/>
-            <meta name="author" content="Michał Tarnowski"/>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-            <title>MusicianSimulator</title>
+        <!-- Link to the new, unified stylesheet -->
+        <meta charset="UTF-8"/>
+        <meta name="description" content="Musician Simulator Application"/>
+        <meta name="keywords" content="RPG"/>
+        <meta name="author" content="Michał Tarnowski"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>MusicianSimulator</title>
 
-            <h:outputStylesheet library="webjars" name="mdb-ui-kit/6.4.0/css/mdb.min.css"/>
-            <h:outputStylesheet library="default" name="css/main.css"/>
-            <h:outputScript library="webjars" name="mdb-ui-kit/6.4.0/js/mdb.min.js"/>
-            <h:outputScript library="mdb" name="js/main.js" target="body"/>
+        <h:outputStylesheet library="webjars" name="mdb-ui-kit/6.4.0/css/mdb.min.css"/>
+        <h:outputStylesheet library="default" name="css/main.css"/>
+        <h:outputScript library="webjars" name="mdb-ui-kit/6.4.0/js/mdb.min.js"/>
+        <h:outputScript library="mdb" name="js/main.js" target="body"/>
 
-        </h:head>
+    </h:head>
 
-        <h:body>
-            <div class="container">
+    <h:body>
+        <div class="container">
+            <div>
                 <header class="mb-4 mt-4">
                     <h1>Musician Hub</h1>
                 </header>
@@ -43,7 +44,8 @@
                             </li>
                             <li class="nav-item">
                                 <h:link styleClass="nav-link"
-                                        outcome="/musician/musician_list.xhtml">Musicians</h:link>
+                                        outcome="/musician/musician_list.xhtml">Musicians
+                                </h:link>
                             </li>
                         </ul>
                     </div>
@@ -52,7 +54,8 @@
                 <main class="mb-4 mt-4">
                     <ui:insert name="content"/>
                 </main>
-
+            </div>
+            <div>
                 <footer class="text-center">
                     <div class="text-center">
                         Copyright &#169; 2025, Michał Tarnowski
@@ -63,6 +66,7 @@
                     </div>
                 </footer>
             </div>
-        </h:body>
-    </f:view>
+        </div>
+    </h:body>
+</f:view>
 </html>

@@ -3,10 +3,10 @@ package pl.edu.pg.eti.kask.wingspan.controller.servlet.exception;
 import lombok.Getter;
 
 
+@Getter
 public class HttpRequestException extends RuntimeException {
 
     
-    @Getter
     private final int responseCode;
 
     
